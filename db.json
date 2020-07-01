@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Woofing those bugs away",
-      "likes": 11,
+      "likes": 9,
       "image": "./assets/coder-dog.png"
     }
   ],
@@ -172,6 +172,56 @@
       "imageId": "1",
       "content": "",
       "id": 33
+    },
+    {
+      "imageId": "1",
+      "content": "Hello",
+      "id": 34
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 35
+    },
+    {
+      "imageId": "1",
+      "content": "Hello",
+      "id": 36
+    },
+    {
+      "imageId": "1",
+      "content": "New Comment",
+      "id": 37
+    },
+    {
+      "imageId": "1",
+      "content": "Hello",
+      "id": 38
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 39
+    },
+    {
+      "imageId": "1",
+      "content": "Hello",
+      "id": 40
+    },
+    {
+      "imageId": "1",
+      "content": "Hi",
+      "id": 41
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 42
+    },
+    {
+      "imageId": "1",
+      "content": "Hello",
+      "id": 43
     }
   ]
 }

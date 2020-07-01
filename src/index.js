@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function(e){
             .then(response => response.json())
             .then(data => console.log(data))
         }
+    })
 
     document.addEventListener("submit", function(e){
         e.preventDefault()
@@ -106,11 +107,6 @@ document.addEventListener("DOMContentLoaded", function(e){
         })
         .then(response => response.json())
         .then(data => console.log(data))
-
-    })
-
-    
-    
     })
     
 })
