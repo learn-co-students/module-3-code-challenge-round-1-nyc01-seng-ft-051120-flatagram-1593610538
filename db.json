@@ -2,9 +2,9 @@
   "images": [
     {
       "id": 1,
-      "title": "Woofing those bugs away",
-      "likes": 0,
-      "image": "./assets/coder-dog.png"
+      "title": "fog",
+      "likes": "hello",
+      "image": "file:///Users/malcolmgourdine/Desktop/module-3-code-challenge-round-1-nyc01-seng-ft-051120-flatagram-1593610538/hello "
     }
   ],
   "comments": [

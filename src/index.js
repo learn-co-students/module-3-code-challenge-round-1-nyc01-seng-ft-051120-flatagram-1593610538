@@ -7,16 +7,32 @@ const imageElement = document.querySelector(".image");
 const commentsList = document.querySelector(".comments");
 const likesSection = document.querySelector(".likes-section");
 
-function getImage() {
-  fetch(`${IMAGES_URL}/1`)
-    .then(res => res.json())
-    .then(json => {
-      renderPost(json)
-    })
+
+
+getImage = async () => {
+  let json = {}
+  try {
+    json = await (await fetch(`${IMAGES_URL}/1`)).json()
+  } catch (error) {
+    console.log();
+  }
+  return json
+
+  // fetch(`${IMAGES_URL}/1`)
+  //   .then(res => res.json())
+  //   .then(json => {
+  //     renderPost(json)
+  //   })
+}
+
+requestPost = async () => {
+  const json = await getImage();
+  console.log(json);
+  
+  renderPost(json);
 }
 
 function renderPost(post) {
-  // render image
   imageElement.src = post.image
   renderComments(post)
 }
@@ -35,7 +51,7 @@ likesSection.addEventListener('click', e => {
 })
 
 
-function patchPost() {
+function patchPost(post) {
   fetch(
     `${IMAGES_URL}/1`,
     {
@@ -43,20 +59,16 @@ function patchPost() {
       headers: {
         "Accept": "json/application",
         "Data-Type": "json/application",
-        "Accept-Patch": "application/json"
+        "Content-type": "application/json; charset=UTF-8"
       },
       body: JSON.stringify({
-        image: "hello",
-        likes: "4",
-        title: "hello",
+        image: `https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`,
+        likes: `${post.likes}`,
+        title: `${post.title}`,
       })
     }
   )
-
 }
 
 
-
-getImage()
-
-patchPost()
+requestPost()
