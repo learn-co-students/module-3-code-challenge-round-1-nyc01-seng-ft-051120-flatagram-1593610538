@@ -1,13 +1,6 @@
 
-const createNode = (elem) => {
-    return document.createElement(elem)
-}
 
-const appendNode = (parent, elem) => {
-    parent.appendChild(elem)
-}
 
-const ul = document.getElementsByClassName('comments')
 const url = 'http://localhost:3000/comments'
 
 
@@ -26,8 +19,11 @@ function fetchComments(){
 
         const values = Object.values(data)
         for(const value of values){
-           let li = createNode('li')
-           appendNode(ul, li)
+            const ul = document.getElementsByClassName('comments')
+          const li = document.createElement('li')
+          li.dataset.id = value.id
+          ul.Append(li)
+          console.log(li)
         }   
     })
 }
