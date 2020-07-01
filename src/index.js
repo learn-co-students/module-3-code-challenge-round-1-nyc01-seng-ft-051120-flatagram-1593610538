@@ -1,12 +1,41 @@
 // write your code here
 document.addEventListener('DOMContentLoaded', () => {
+const commentHandler = () => {
+  const postButton = document.getElementsByClassName('comment-button')[0]
+  const formInputs = document.getElementsByClassName("comment-input")[0]
+  console.log(postButton)
+}
+
 const increaselikes = () => {
   let likesElement =  document.getElementsByClassName("likes")[0]
   likesString = likesElement.innerText.split(" ")[0]
    likes = parseInt(likesString)
     likes += 1
-  likesElement.innerText = `${likes} likes`
-}
+
+    dogObj =     {
+          "id": 1,
+          "title": "Woofing those bugs away",
+          "likes": `${likes}`,
+          "image": "./assets/coder-dog.png"
+        }
+
+  fetch("http://localhost:3000/images/1",{
+        method: "PATCH",
+        headers: {
+        'Content-Type' : 'application/json'
+          },
+        body: JSON.stringify(dogObj)
+      })
+       .then(response => response.json())
+       .then(data => {
+         console.log('Success:', data);
+          likesElement.innerText = `${likes} likes`
+ 
+         })
+       .catch((error) => {
+         console.error('Error:', error);
+       })
+     }
 
 const likeHandler = () => {
   const likeButton = document.getElementsByClassName("like-button")[0]
@@ -54,5 +83,6 @@ const getImage = () => {
 
    getImage()
    likeHandler()
+   commentHandler()
 //DOMContentLoaded
 })
