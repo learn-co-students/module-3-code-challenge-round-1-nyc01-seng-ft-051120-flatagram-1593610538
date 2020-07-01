@@ -44,14 +44,11 @@ const renderImage = (image) => {
 }
 
 
-
-
-
 document.addEventListener("click", function (e) {
-if (e.target = likeButton)
+if (e.target === likeButton)
 addLike(e)
 
-else if (e.target = commentButton)
+else if (e.target === commentButton)
 submitListener(e)
 
 })
@@ -71,14 +68,13 @@ const likesObj = {
 
     fetch(imageUrl, likesObj)
     .then(resp => resp.json())
-    .then(image => renderImage(image))
+    .then(getImage())
     }
-
 
 const submitListener = (e) => {
     document.addEventListener("submit", (e) => {
     e.preventDefault()
-    newComment = commentInput.comment.value
+    newComment = commentForm.comment.value
     addComment(newComment)
     })}
 
@@ -86,13 +82,29 @@ const addComment = (newComment) => {
     commentLi = document.createElement(`li`)
     commentLi.innerText = `${newComment}`
     commentsUl.append(commentLi)
-    // commentForm.reset()
+    commentForm.reset()
+    postComment(newComment)
     }
 
+const postComment = (newComment) => {
+
+    options = {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+            "accept": "application/json"
+        },
+        body: JSON.stringify({comment: newComment}) 
+    }
+
+    fetch(imageUrl, options)
+        .then(response => response.json())
+        .then(getImage())
+    
+}
 
  
 
-   
 
 //2. click event listener on like button
 // inside event listener a function addLikes
