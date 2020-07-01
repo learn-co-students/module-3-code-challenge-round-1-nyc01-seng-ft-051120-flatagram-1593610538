@@ -1,19 +1,24 @@
+//Things I've noted but couldn't debug:
+//  - When adding comments to the pic, they display inline instead of block
+
 const baseURL = "http://localhost:3000"
 const fetchURL = "http://localhost:3000/images/1"
 const commentsURL = "http://localhost:3000/comments"
 
 document.addEventListener("DOMContentLoaded", function(){
 
+    fetchDog()
 postDog()
 
 })
 
-
+function fetchDog(){
 fetch(fetchURL)
 .then(response => response.json())
 .then(dog => {
    postDog(dog)
     })
+}
 
 
 
@@ -44,11 +49,12 @@ function makeComments(dog){
 document.addEventListener('click', function(e){
     if (e.target.className === "like-button"){
         let likes = document.querySelector('span')
-        // likes.innerText =`${parseInt(likes.innerText) + 1} likes`
+        likes.innerText =`${parseInt(likes.innerText) + 1} likes`
 
         let formObj = {
             "likes": `${parseInt(likes.innerText) + 1} likes`
         }
+
      fetch(fetchURL, {
          method: "PATCH",
          headers: {
@@ -59,21 +65,23 @@ document.addEventListener('click', function(e){
      })
      .then(response => response.json())
      .then(data => {
-        let fetchLike = document.querySelector('span')
-        fetchLike.innerText = data.likes
+        fetchDog()
      })
-    }
+
+     }
 })
 
 
 document.addEventListener('submit', function(e){
     e.preventDefault()
     if (e.target.className ===  "comment-form"){
-   let input = document.querySelector('.comment-input')
-   let newComment = input.value
-   let li =document.createElement('li')
-   li.innerHTML = newComment
-   let ulContainer = document.querySelector('.comments')
-   ulContainer.append(newComment)
+        let form = document.querySelector('.comment-form')
+        let input = document.querySelector('.comment-input')
+        let newComment = input.value
+        let li = document.createElement('li')
+        li.innerHTML = newComment
+        let ulContainer = document.querySelector('.comments')
+        ulContainer.append(newComment)
+        form.reset()
     }
 })
