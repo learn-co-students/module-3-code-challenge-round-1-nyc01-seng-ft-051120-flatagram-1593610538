@@ -1,10 +1,18 @@
 // write your code here
 document.addEventListener('DOMContentLoaded', () => {
+const increaselikes = () => {
+  let likesElement =  document.getElementsByClassName("likes")[0]
+  likesString = likesElement.innerText.split(" ")[0]
+   likes = parseInt(likesString)
+    likes += 1
+  likesElement.innerText = `${likes} likes`
+}
+
 const likeHandler = () => {
   const likeButton = document.getElementsByClassName("like-button")[0]
 
    likeButton.addEventListener("click", function(e){
-          increade
+          increaselikes()
    })
 }
 
