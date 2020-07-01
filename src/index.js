@@ -1,6 +1,7 @@
 // write your code here
 document.addEventListener('DOMContentLoaded', () => {
 fetchImage()
+likesListener()
 })
 
 
@@ -16,6 +17,7 @@ const fetchImage = () => {
 const renderImg = (imgObj) => {
     console.log(imgObj)
     imgDiv = document.querySelector('.image-container')
+    imgDiv.dataset.id = imgObj.id 
     let titleSpot = imgDiv.querySelector('h2.title')
     let imgSpot = imgDiv.querySelector('img.image')
     let likesSpot = imgDiv.querySelector('span.likes')
@@ -39,5 +41,29 @@ const fetchComments = () => {
             li.innerText = comment.content 
             commentSpot.appendChild(li)
         })
+    })
+}
+
+const likesListener = () => {
+    const likesBloc = document.querySelector('.likes-section')
+    const likesBtn = likesBloc.querySelector('button')
+    likesBtn.addEventListener('click', (event) => {
+        if (event.target === likesBtn){
+            currentLikes = document.querySelector('.likes-section')
+            console.log(currentLikes)
+
+            // fetch("http://localhost:3000/images/1", {
+            //     method: 'PATCH',
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         "Accepts": "application/json"
+            //     },
+            //     body: JSON.stringify({
+            //         likes: (`${likes}` + 1)
+            //     })
+            // })
+            // .then(response => response.json())
+            // .then(likeCount => console.log(likeCount))
+        }
     })
 }
