@@ -1,103 +1,85 @@
-// ## Core Deliverables
-
-// As a user, I can:
-
-// - See the image received from the server, including its title, likes and comments when the page loads
-// - Click on the heart icon to increase image likes, and still see them when I reload the page
-// - Add a comment (no persistance needed)
+// test1.js
+// test2.js
 
 document.addEventListener("DOMContentLoaded", () => {
 
-///// test3.js /////
+// GET `/images/1`:
 
     function renderImage(imgObj) {
-        // shows image onto browser 
-    
-            const imageDiv = document.getElementsByClassName('image-card')
-            image.innerHTML =   `
-                                    <h2 class="title">Title of image goes here</h2>
-                                    <div class="likes-section">
-    
-            
-                                `
-    
-        }
+    // I couldn't get some of the following (e.g. 'imgDiv') to work, so just had to hard-code it for now 
 
-
-
-    function fetchImage(url) {
-    // gets image data from server 
-        .then(response => response.json())
-        .then(imageObject => renderImage(imageObject))
+        const imgContainer          = document.getElementsByClassName('image-container')
+        const imgCard               = document.getElementsByClassName('image-card')
+        const imgTitle              = document.getElementsByClassName('title')
+            imgTitle.innerHTML      = `${imgObj.title}`
+        const imgImage              = document.getElementsByClassName('image') 
+            imgDiv                  = `<img src="./assets/coder-dog.png" class="image" />`               
+        const likesDiv              = document.getquerySelectorByClassName('likes-section')
+            likesDiv[0].innerHTML   =`<span class="likes">0 likes</span>`
+            likesDiv[1].innerHTML   = `<button class="like-button">♥</button>`
     }
 
-    fetchImage("http://localhost:3000/images/1")
-
-
-})
-
-function updateLike(url, newNumber)
-    fetch url, {
-        method:     "PATCH",
-        headers:    {
-            "content-Type": "application/json"
-            "Accept": "application/json"
-        }
-        body: JSON.stringify(
-            likes: newNumber
-        )
+    function fetchImages(url) {
+    // gets images data from server 
+        fetch(url)
+            .then(response => response.json())
+            .then(imagesObject => renderImages(imagesObject))
     }
 
-    function updateLike(url, num) {
-        fetch(url, {
-          method: 'PATCH', 
-          headers:
-          {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: JSON.stringify({
-            "likes": num
-          })
-        })
-      }
+    fetchImages("http://localhost:3000/images")
 
-    body.addEventListener("click", function(e) {
-        if (e.target.className === "like-button")
-        e.preventDefault() 
-        const likesDiv = e.target.parentNode
-        const likesText = likesDiv.querySelector('p')
+    imgContainer.append(imgDiv)
 
-        const likeInt = parseInt(likesText.innerText.split(" ")[0])
-        const newLikes = (likeInt + 1)
-        likesText.innerText = `${newLikes} Likes`
-        updateLike()
+ // PATCH `/images/1`: 
+        // I was able to get to only one of the buttons :/
 
+    function updateImageLikes(url, number)
+        fetch(url, configObj) {
+        configObject = {
+            method:                 'PATCH',
+            headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                likes:              number
+            })
+        }
+            .then(resp => resp.json())
+            .then(console.log)
+            .catch (error => console.log(error))
+        }
 
+    document.addEventListener("click", function (e) {
 
+        if (e.target.className === 'like-button') {
+            const likesText = e.target.parentNode.querySelector('span')
+            const currentNum = parseInt(likesText.innerText.split(" ")[0])
+            const newNumber = startingNumber + 1
+                likesText.innerText = `${newNumber} likes`
+                updateImageLikes("http://localhost:3000/images/1", newNumber)
+        }
 
+    // 
+    // I would have included here as 'else if', the other button.. 
+    // 
 
+    }
 
+// POST `/comments`:
 
+        // function renderComments(comments) {
+        //     comments.forEach(comment => renderComment(comment))
+        // }
+    
+        function fetchComments(url) {
+            fetch(url)
+                .then(response => response.json())
+                .then(commentObj => renderComments(commentObj))
+        }
 
+        fetchComments("http://localhost:3000/comments")
 
+        // Helper functions! 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+)}

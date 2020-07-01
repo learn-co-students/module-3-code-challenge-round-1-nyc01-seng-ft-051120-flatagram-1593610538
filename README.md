@@ -21,7 +21,7 @@ Your base URL for your API will be: http://localhost:3000
 The endpoints you will need are:
 
 <!-- - GET `/images/1` -->
-- PATCH `/images/1`
+<!-- - PATCH `/images/1` -->
 - POST `/comments`
 - DELETE `/comments/:id`
 

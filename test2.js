@@ -1,11 +1,7 @@
-function updateLike(url)
+// GET `/image/1`: 
 
-// 
+// PATCH `/images/1`: 
 
-const likeDiv = getElementsByClassName = ('image-container')
+// POST `/comments` 
 
-likeDiv.addEventListener("click", function(e) {
-    if (e.target.className === "like-btn") {
-        e.preventDefault() 
-    }
-})
+// DELETE `/comments/:id` 
