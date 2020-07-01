@@ -51,8 +51,6 @@ function createDogComments(comments){
   comments.forEach(comment => {
     commentsHTMLString += `<li data-comment-id="${comment.id}">${comment.content}<a class="delete-button">&times;</a></li>`
   });  
-  console.log(comments);
-  
   return commentsHTMLString
 }
 
