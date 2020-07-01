@@ -1,3 +1,16 @@
+
+const createNode = (elem) => {
+    return document.createElement(elem)
+}
+
+const appendNode = (parent, elem) => {
+    parent.appendChild(elem)
+}
+
+const ul = document.getElementsByClassName('comments')
+const url = 'http://localhost:3000/comments'
+
+
 // write your code here
 document.addEventListener('DOMContentLoaded', () => {
     // when the page loads, fetch comments
@@ -7,15 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function fetchComments(){
-    fetch('http://localhost:3000/comments')
+    fetch(url)
     .then (resp => resp.json())
-    .then(comments_obj => renderComments(comments_obj))
-}
+    .then(data => {
 
-function renderComments(comments_obj){
-    const commentLi = document.createElement('li')
-    commentLi.className = "comments-list"
-    commentLi.dataset.id = comments_obj.id
-    commentLi.innerHTML =  "<li>${comments_obj.content}</li>"
-    return commentLi
+        const values = Object.values(data)
+        for(const value of values){
+           let li = createNode('li')
+           appendNode(ul, li)
+        }   
+    })
 }
