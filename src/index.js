@@ -2,8 +2,17 @@
 document.addEventListener('DOMContentLoaded', () => {
 const commentHandler = () => {
   const postButton = document.getElementsByClassName('comment-button')[0]
-  const formInputs = document.getElementsByClassName("comment-input")[0]
-  console.log(postButton)
+  const input = document.getElementsByClassName("comment-input")[0]
+
+    postButton.addEventListener("click", function(e){
+     e.preventDefault()
+    const ul = document.getElementsByClassName("comments")[0]
+    const li = document.createElement("li")
+    li.innerText = input.value
+     ul.appendChild(li)
+     input.value = ''
+  })
+
 }
 
 const increaselikes = () => {
@@ -78,8 +87,6 @@ const getImage = () => {
          console.error('Error:', error);
        })
     }
-
-
 
    getImage()
    likeHandler()
