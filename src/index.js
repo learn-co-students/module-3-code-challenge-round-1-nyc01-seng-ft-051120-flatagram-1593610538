@@ -7,22 +7,21 @@ document.addEventListener("DOMContentLoaded", () => {
 function getImage(){
     fetch('http://localhost:3000/images/1')
     .then(resp => resp.json())
-    .then(image => { render(image) 
+    .then(image => { renderImage(image) 
     })
 }
 
 function getComments(){
     fetch('http://localhost:3000/comments')
     .then(resp => resp.json())
-    .then(comments => {comments.forEach(function(comment){
+    .then(comments => {comments.forEach(comment => {
+        renderImage(comment)
         console.log(comment)
-        render(comment) })
-     
-        
-    })
+    });}
+    )
 }
 
-function render(image, comment){
+function renderImage(image, comment){
     const imageCard = document.querySelector('.image-card')
     imageCard.innerHTML = `
     <h2 class="title">${image.title}</h2>
@@ -31,9 +30,14 @@ function render(image, comment){
           <span class="likes">${image.likes} likes</span>
           <button class="like-button">♥</button>
           </div>
-          
     `
 }
+
+// function renderComments(comments){
+//     const commentSection = document.querySelector('.comments')
+//     console.log(commentSection)
+
+// }
 
 // function like(){
 //     const likeBtn = document.querySelector('.like-button')
