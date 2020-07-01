@@ -79,9 +79,19 @@ document.addEventListener("DOMContentLoaded", function(e){
                 const likeSpan = document.querySelector("span.likes")
                 const likeSpanContent = likeSpan.textContent
                 const currentLikes = likeSpanContent.split(' ')[0]
+                const newLikes = parseInt(currentLikes) + 1
                 const imgId = button.id
-                const newLikes = updateLikes(currentLikes, imgId)                
-            }
+                updateLikes(newLikes, imgId)                
+            } 
+            // else if (e.target.className === "unlike-button") {
+            //     const button = e.target
+            //     const likeSpan = document.querySelector("span.likes")
+            //     const likeSpanContent = likeSpan.textContent
+            //     const currentLikes = likeSpanContent.split(' ')[0]
+            //     const newLikes = parseInt(currentLikes) - 1
+            //     const imgId = button.id
+            //     updateLikes(newLikes, imgId) 
+            // } 
         })
     }
 
@@ -100,8 +110,8 @@ document.addEventListener("DOMContentLoaded", function(e){
         })
     }
 
-    const updateLikes = (currentLikes, imgId) => {
-        const newLikes = parseInt(currentLikes) + 1
+    const updateLikes = (newLikes, imgId) => {
+        
         const url = `http://localhost:3000/images/${imgId}`
         return fetch(url, {
             method: "PATCH",
