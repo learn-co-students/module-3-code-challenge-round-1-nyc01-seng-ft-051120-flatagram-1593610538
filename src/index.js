@@ -38,11 +38,24 @@ const increaseLikes = () => {
   likesSection.addEventListener('click', e => {
     if (e.target.classname = 'like-button') {
       const likes = document.querySelector('.likes-section')
-      const likeCount = parseInt(likes.dataset.likes)
-      const likeObj = {
-        likes: likeCount
+
+      let likeCount = parseInt(likes.dataset.likes) 
+      likeCount += 1
+
+
+      let likeObj = {
+        likes: (likeCount += 1)
       }
       console.log(likeObj)
+      fetch('http://localhost:3000/images/1', {
+        method: 'PATCH',
+        body: JSON.stringify(likeObj),
+        headers: {'Content-type': "application/json"}
+      })
+      .then(r => r.json())
+      .then(data => {
+        console.log(data)
+      })
     }
   })
 }
