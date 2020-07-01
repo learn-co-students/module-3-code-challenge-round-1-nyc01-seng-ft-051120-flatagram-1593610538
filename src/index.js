@@ -13,6 +13,10 @@
 
 // ++ add comments (dont need to do a POST)
 
+// ++ add a downvote
+
+
+
 document.addEventListener("DOMContentLoaded", function(e){
 
     const commentsUl = document.querySelector(".comments")
@@ -45,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     document.addEventListener("click", function(e){
         if (e.target.className === "like-button"){
-            console.log(e.target.parentNode.querySelector(".likes"))
+            // console.log(e.target.parentNode.querySelector(".likes"))
             const addLike = e.target.parentNode.querySelector(".likes")
             addLike.textContent = `${parseInt(addLike.textContent) + 1} likes`
 
@@ -61,12 +65,28 @@ document.addEventListener("DOMContentLoaded", function(e){
             })
             .then(response => response.json())
             .then(data => console.log(data))
+        } else if (e.target.className === "unlike-button"){
+            // console.log(e.target.parentNode.querySelector(".likes"))
+            const addLike = e.target.parentNode.querySelector(".likes")
+            addLike.textContent = `${parseInt(addLike.textContent) - 1} likes`
+
+            fetch("http://localhost:3000/images/1", {
+                method: "PATCH",
+                body: JSON.stringify({
+                    "likes": parseInt(addLike.textContent)
+                }),
+                headers: {
+                    "Content-type": "application/json",
+                    "Accept": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
         }
-    })
 
     document.addEventListener("submit", function(e){
         e.preventDefault()
-        console.log(e.target)
+        // console.log(e.target)
         const newComment = e.target.comment.value
         const createNewComment = document.createElement("li")
         createNewComment.textContent = newComment
@@ -76,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         fetch("http://localhost:3000/images/1/comments", {
             method: "POST",
             body: JSON.stringify({
-                "imageId": parseInt(1),
+                "imageId": 1,
                 "content": newComment
             }),
             headers: {
@@ -86,6 +106,11 @@ document.addEventListener("DOMContentLoaded", function(e){
         })
         .then(response => response.json())
         .then(data => console.log(data))
+
+    })
+
+    
+    
     })
     
 })

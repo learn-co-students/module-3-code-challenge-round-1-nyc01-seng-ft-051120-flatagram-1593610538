@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Woofing those bugs away",
-      "likes": 18,
+      "likes": 11,
       "image": "./assets/coder-dog.png"
     }
   ],
@@ -42,6 +42,136 @@
       "imageId": "1",
       "content": "Hello",
       "id": 7
+    },
+    {
+      "imageId": "1",
+      "content": "Hello",
+      "id": 8
+    },
+    {
+      "imageId": "1",
+      "content": "New Comment",
+      "id": 9
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 10
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 11
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 12
+    },
+    {
+      "imageId": "1",
+      "content": "This",
+      "id": 13
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 14
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 15
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 16
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 17
+    },
+    {
+      "imageId": "1",
+      "content": "1",
+      "id": 18
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 19
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 20
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 21
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 22
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 23
+    },
+    {
+      "imageId": "1",
+      "content": "ABC",
+      "id": 24
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 25
+    },
+    {
+      "imageId": "1",
+      "content": "Number 1",
+      "id": 26
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 27
+    },
+    {
+      "imageId": "1",
+      "content": "number 2",
+      "id": 28
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 29
+    },
+    {
+      "imageId": "1",
+      "content": "numebr 3",
+      "id": 30
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 31
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 32
+    },
+    {
+      "imageId": "1",
+      "content": "",
+      "id": 33
     }
   ]
 }
