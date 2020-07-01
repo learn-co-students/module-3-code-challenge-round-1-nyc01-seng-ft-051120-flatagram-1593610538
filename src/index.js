@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
  const BASE_COMM = `http://localhost:3000/comments`
  fetchImages()
  fetchComments()
+ addLike()
 
 
 
@@ -41,15 +42,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const commentsLi = Array.from(document.getElementsByTagName("li"))
 
         comments.forEach(comment => {
-            let allComments = document.querySelector()
+            let allComments = document.querySelector(".comments")
+            allComments.innerText = `${comment.content}`
         })
     }
         
 
+ // - Click on the heart icon to increase image likes, and still see them when I reload the page
 
-
+  function addLike() {
+    document.addEventListener("click", (e) => {
+        e.target.matches("like-button")
+            const button = e.target
+            const likeSpan = button.parentNode.querySelector("span")
+            likeSpan.textContent = parseInt(likeSpan.textContent) + 1
+        })
+  }
 })
-
-
-// - Click on the heart icon to increase image likes, and still see them when I reload the page
 // - Add a comment (no persistance needed)
