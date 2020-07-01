@@ -69,9 +69,19 @@ heart.addEventListener('click', function(e){
 
 // 3.  Add a comment (no persistance needed)
 let postBtn = document.querySelector("body > div > div > form > button")
-postBtn.addEventListener("click", function )
-
-
+postBtn.addEventListener("click", function(e){
+    e.preventDefault()
+    let addCom = e.target.previousElementSibling
+    console.log(addCom.value);
+    
+    let comments = document.querySelector("body > div > div > ul")
+    const newCom = document.createElement('li')
+    newCom.innerHTML =`
+    ${addCom.value}`
+    
+    console.log(newCom);
+    comments.append(newCom)
+} )
 
 fetchComments()
 fetchImage()
