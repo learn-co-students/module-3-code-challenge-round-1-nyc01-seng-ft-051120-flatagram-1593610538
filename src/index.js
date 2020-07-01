@@ -13,16 +13,9 @@ function fetchComments(){
 }
 
 function renderComments(comments_obj){
-    const comments = document.getElementsByClassName('.comments')
-    comments_obj.forEach(comment_obj => {
-        let content = document.createElement('li')
-        content.id = comment_obj.id
-        content.innerText = comment_obj.content
-
-    
-        comments.append(content)
-        return content
-
-    });
-
+    const commentLi = document.createElement('li')
+    commentLi.className = "comments-list"
+    commentLi.dataset.id = comments_obj.id
+    commentLi.innerHTML =  "<li>${comments_obj.content}</li>"
+    return commentLi
 }
