@@ -62,6 +62,16 @@ body {
   cursor: pointer;
 }
 
+.delete-button {
+  color: rgb(255, 127, 80);
+  font-size: 1.5rem;
+  border: none;
+  background: none;
+  transition: color 300ms;
+  cursor: pointer;
+
+}
+
 .dislike-button {
   color: rgb(0, 0, 0);
   font-size: 1.5rem;

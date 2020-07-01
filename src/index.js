@@ -42,13 +42,14 @@ function displayDog(dog){
   imageCard.querySelector(".image").src = dog.image
   updateDogLikes(dog)
   imageCard.querySelector(".like-button").dataset.id = dog.id
+  imageCard.querySelector(".dislike-button").dataset.id = dog.id
   imageCard.querySelector(".comments").innerHTML = createDogComments(dog.comments)
 }
 
 function createDogComments(comments){
   let commentsHTMLString = ""
   comments.forEach(comment => {
-    commentsHTMLString += `<li data-comment-id="${comment.id}">${comment.content}</li>`
+    commentsHTMLString += `<li data-comment-id="${comment.id}">${comment.content}<a class="delete-button">&times;</a></li>`
   });  
   console.log(comments);
   
@@ -57,16 +58,25 @@ function createDogComments(comments){
 
 function addClickEvents(){
   document.querySelector("button.like-button").addEventListener("click", e =>{
-    id = e.target.dataset.id
-    likes = parseInt(e.target.dataset.likes) + 1
-    fetcher(IMGES_URL,updateDogLikes,console.log,{likes},"PATCH")
+    incLikes(e.target,1)
   })
+
+  document.querySelector("button.dislike-button").addEventListener("click", e =>{
+    incLikes(e.target,-1)
+  })
+}
+
+function incLikes(target,num){
+  id = target.dataset.id
+  likes = parseInt(target.dataset.likes) + num
+  fetcher(IMGES_URL,updateDogLikes,console.log,{likes},"PATCH")
 }
 
 function updateDogLikes(dog){
   const imageCard =  document.querySelector(".image-card")
   imageCard.querySelector(".likes").textContent = `${dog.likes} likes`
   imageCard.querySelector(".like-button").dataset.likes = dog.likes
+  imageCard.querySelector(".dislike-button").dataset.likes = dog.likes
 }
 
 function addSubmitEvent(){
@@ -81,7 +91,7 @@ function addSubmitEvent(){
 
 function addNewComment(comment){
  const commentsUl = document.querySelector(`div[data-id="${comment.imageId}"] ul.comments`)
- commentsUl.insertAdjacentHTML("beforeend",`<li data-comment-id="${comment.id}">${comment.content}</li>`)
+ commentsUl.insertAdjacentHTML("beforeend",`<li data-comment-id="${comment.id}">${comment.content}<a class="delete-button">&times;</a></li>`)
  clearForm()
 }
 
