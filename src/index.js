@@ -16,25 +16,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }  
     
-    // function fetchComments(){
-    //     fetch(BASE_COMM)
-    //     .then(resp => resp.json())
-    //     .then(comments => getComments(comments))
-    // }
+    function fetchComments(){
+        fetch(BASE_COMM)
+        .then(resp => resp.json())
+        .then(comments => getComments(comments))
+    }
    
     function getImages(images) {
         console.log(images)
         const imageCard = document.querySelector(".image-card")
         images.forEach(image => {
             let picture = document.querySelector(".image")
-            picture.innerText = ${image.image}
+            picture.innerHTML = `<img src="${image.image}" />`
             let title = document.querySelector(".title")
-            title.innerText = ${image.title}
+            title.innerText = `${image.title}`
             let likes = document.querySelector(".likes")
-            likes.textContent = ${image.likes}
+            likes.textContent = `${image.likes}`
         })
-        
     }
+
+    function getComments(comments) {
+        console.log(comments)
+
+        const commentsLi = Array.from(document.getElementsByTagName("li"))
+
+        comments.forEach(comment => {
+            let allComments = document.querySelector()
+        })
+    }
+        
+
 
 
 })
