@@ -7,7 +7,7 @@ const commentsURL = "http://localhost:3000/comments"
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    fetchDog()
+fetchDog()
 postDog()
 
 })
@@ -26,9 +26,11 @@ function postDog(dog){
     let title = document.querySelector('.title')
     let image = document.querySelector('.image')
     let comments = document.querySelector('.comments')
+    let likes =  document.querySelector('span')
 
     title.innerText = `${dog.title}`
     image.src = `${dog.image}`
+    likes.innerText = `${dog.likes}`
     comments = makeComments(dog)
 }
 
@@ -52,7 +54,7 @@ document.addEventListener('click', function(e){
         likes.innerText =`${parseInt(likes.innerText) + 1} likes`
 
         let formObj = {
-            "likes": `${parseInt(likes.innerText) + 1} likes`
+            "likes": likes.innerText
         }
 
      fetch(fetchURL, {
@@ -64,9 +66,7 @@ document.addEventListener('click', function(e){
          body: JSON.stringify (formObj)
      })
      .then(response => response.json())
-     .then(data => {
-        fetchDog()
-     })
+     .then(console.log)
 
      }
 })
