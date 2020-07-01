@@ -20,7 +20,7 @@ Your base URL for your API will be: http://localhost:3000
 
 The endpoints you will need are:
 
-- GET `/images/1`
+<!-- - GET `/images/1` -->
 - PATCH `/images/1`
 - POST `/comments`
 - DELETE `/comments/:id`
@@ -29,8 +29,10 @@ The endpoints you will need are:
 
 As a user, I can:
 
-- See the image received from the server, including its title, likes and comments when the page loads
-- Click on the heart icon to increase image likes, and still see them when I reload the page
+<!-- - See the image received from the server, including its title, likes and comments when the page loads -->
+
+<!-- - Click on the heart icon to increase image likes, and still see them when I reload the page -->
+
 - Add a comment (no persistance needed)
 
 ## Advanced Deliverables

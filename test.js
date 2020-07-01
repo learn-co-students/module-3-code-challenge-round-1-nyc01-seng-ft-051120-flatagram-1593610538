@@ -10,25 +10,25 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-
-
     function renderImage(imgObj) {
     // shows image onto browser 
 
         const imageContainer = document.getElementsByClassName('image-container')
         const imageDiv = document.getElementsByClassName('image-card') 
         imageDiv.innerHTML =   `
-        <h2 class="title">${immgObject.title}</h2>
-        <img src="./assets/image-placeholder.jpg" class="image" />
-        <div class="likes-section">
-            <span class="likes">0 likes</span>
-            <button class="like-button">♥</button>
-        </div>
+                                    <h2 class="title">${immgObject.title}</h2>
+                                    <img src="./assets/image-placeholder.jpg" class="image" />
+                                    <div class="likes-section">
+                                        <span class="likes">0 likes</span>
+                                        <button class="like-button">♥</button>
+                                    </div>
                                 ${imgObject.id}
                                 
                                 ${imgObject.likes}
                                 ${imgObject.image}
         
+
+                                
                             `
 
     }
@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(imageObject => renderImage(imageObject))
     }
+
+    fetchImage()
 
 // test.js
 

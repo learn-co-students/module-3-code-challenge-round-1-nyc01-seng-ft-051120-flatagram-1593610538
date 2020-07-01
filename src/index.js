@@ -8,20 +8,20 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-
+///// test3.js /////
 
     function renderImage(imgObj) {
-    // shows image onto browser 
-
-        const imageDiv = document.getElementsByClassName('image-card')
-        image.innerHTML =   `
-                                <h2 class="title">Title of image goes here</h2>
-                                <div class="likes-section">
-
-        
-                            `
-
-    }
+        // shows image onto browser 
+    
+            const imageDiv = document.getElementsByClassName('image-card')
+            image.innerHTML =   `
+                                    <h2 class="title">Title of image goes here</h2>
+                                    <div class="likes-section">
+    
+            
+                                `
+    
+        }
 
 
 
@@ -31,14 +31,73 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(imageObject => renderImage(imageObject))
     }
 
+    fetchImage("http://localhost:3000/images/1")
 
-
-
-
-
-
-    
 
 })
 
-http://localhost:3000
+function updateLike(url, newNumber)
+    fetch url, {
+        method:     "PATCH",
+        headers:    {
+            "content-Type": "application/json"
+            "Accept": "application/json"
+        }
+        body: JSON.stringify(
+            likes: newNumber
+        )
+    }
+
+    function updateLike(url, num) {
+        fetch(url, {
+          method: 'PATCH', 
+          headers:
+          {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify({
+            "likes": num
+          })
+        })
+      }
+
+    body.addEventListener("click", function(e) {
+        if (e.target.className === "like-button")
+        e.preventDefault() 
+        const likesDiv = e.target.parentNode
+        const likesText = likesDiv.querySelector('p')
+
+        const likeInt = parseInt(likesText.innerText.split(" ")[0])
+        const newLikes = (likeInt + 1)
+        likesText.innerText = `${newLikes} Likes`
+        updateLike()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
