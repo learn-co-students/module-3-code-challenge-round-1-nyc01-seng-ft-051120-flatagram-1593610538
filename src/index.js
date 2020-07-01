@@ -18,7 +18,6 @@ fetch(fetchURL)
 
 
 function postDog(dog){
-    let imageContainer = document.querySelector('.image-container')
     let title = document.querySelector('.title')
     let image = document.querySelector('.image')
     let comments = document.querySelector('.comments')
@@ -32,12 +31,35 @@ function postDog(dog){
 function makeComments(dog){
     let commentSection = document.querySelector('.comments')
     let dogComments = dog.comments
-    let content = dogComments.forEach(comment => {
-        comment.content
-    })
+    let content = dogComments.map(comment => comment.content)
+   
     commentSection.innerHTML = `
     <li>${content[0]}</li>
     <li>${content[1]}</li>
     <li>${content[2]}</li>
     `
 }
+
+
+document.addEventListener('click', function(e){
+    if (e.target.className === "like-button"){
+        likes = document.querySelector('span')
+        likes.innerText =`${parseInt(likes.innerText) + 1} likes`
+
+        formObj = {
+            "likes": likes.innerText
+        }
+     fetch(fetchURL, {
+         method: "PATCH",
+         headers: {
+             "content-type": "application/json",
+             "accept": "application/json"
+         },
+         body: JSON.stringify (formObj)
+     })
+    //  .then(response => response.json())
+    //  .then(console.log)
+    likes = document.querySelector('span')
+    likes.innerText =`${parseInt(likes.innerText) + 1} likes`
+    }
+})
