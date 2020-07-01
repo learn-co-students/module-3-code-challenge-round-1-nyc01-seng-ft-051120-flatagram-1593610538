@@ -22,6 +22,20 @@
       "id": 3,
       "imageId": 1,
       "content": "Woof!"
+    },
+    {
+      "content": "hi",
+      "id": 4
+    },
+    {
+      "content": "hey",
+      "image_id": 1,
+      "id": 5
+    },
+    {
+      "content": "hello",
+      "imageId": 1,
+      "id": 6
     }
   ]
 }

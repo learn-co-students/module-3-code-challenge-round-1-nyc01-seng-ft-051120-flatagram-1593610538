@@ -54,8 +54,20 @@ document.addEventListener("submit", function(e) {
     let commentsUl = document.querySelector(".comments")
     let commentLi = document.createElement("li")
     commentLi.innerText = `${comment}`
-    commentsUl.append(commentLi)
-    form.reset()
+    let configObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }, body: JSON.stringify({"content": comment, "imageId": 1})
+    }
+    fetch("http://localhost:3000/comments", configObj)
+    .then(response => response.json())
+    .then(data => {
+        console.log("success", data)
+        commentsUl.append(commentLi)
+        form.reset()
+    })
 })
 
 document.addEventListener("click", function(e) {
