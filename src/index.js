@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded',function(){  
 let getPictureCard = document.querySelector('.image-card')
 let ul = document.querySelector('.comments')
+let commentForm = document.querySelector('.comment-form')
 const picApi = () => {fetch('http://localhost:3000/images?_embed=comments')
 .then(resp => resp.json())
 .then(json => json.forEach(pic => showPic(pic)))}
@@ -11,6 +12,7 @@ const showPic = (pic) =>{
   let title = getPictureCard.querySelector('.title')
   let image = getPictureCard.querySelector('.image')
   let like = getPictureCard.querySelector('.likes')
+  commentForm.dataset.id = pic.id
   title.textContent = pic.title
   image.src= pic.image
   like.dataset.id = pic.id
@@ -19,11 +21,10 @@ const showPic = (pic) =>{
 pic.comments.forEach(function(e){
    let li = document.createElement('li')
    let text = document.createTextNode(e.content)
+   li.dataset.id = e.id
    li.appendChild(text);
    ul.appendChild(li)
-}
-  )
-}
+})}
 
 document.addEventListener('click',function(e){
 if(e.target.textContent == '♥'){
@@ -36,18 +37,24 @@ body: JSON.stringify({
 }),
  headers: {
    'content-type': 'application/json'
- }
-
-})}})
-let commentForm = document.querySelector('.comment-form')
+ }})}})
 
 commentForm.addEventListener('submit',function(e) {
   e.preventDefault()
   let newLi = document.createElement("li")
   newLi.innerHTML = e.target.comment.value
   ul.append(newLi)
-  commentForm.reset()
-})
+  console.log(commentForm.dataset.id)
+  fetch('http://localhost:3000/comments',{
+    method :"POST",
+    body : JSON.stringify({
+      imageId : parseInt(commentForm.dataset.id),
+      content : newLi.innerHTML = e.target.comment.value
+    }),
+    headers :{
+      'content-type':'application/json'
+    }})
+  commentForm.reset()})
 
 picApi()
 })
