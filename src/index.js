@@ -6,10 +6,10 @@
 // POST /comments
 // DELETE /comments/:id
 
-// On page load render title, likes, comments
+// ++On page load render title, likes, comments
 
-// click on heart increases likes
-// use fetch patch to persist the likes
+// ++click on heart increases likes
+// ++use fetch patch to persist the likes
 
 //add comments (dont need to do a POST)
 
@@ -30,13 +30,10 @@ document.addEventListener("DOMContentLoaded", function(e){
         const likesSection = document.querySelector(".likes-section")
         imageCard.querySelector(".title").textContent = data.title
         imageCard.querySelector("img").src = data.image
-        // likesSection.querySelector(".likes") = `${data.likes} likes`
+        likesSection.querySelector(".likes").textContent = `${data.likes} likes`
         pictComments.forEach(comment =>{
             renderComments(comment)
         })
-      
-        
-        // renderComments(data)
     }
 
     function renderComments(data){
@@ -46,6 +43,35 @@ document.addEventListener("DOMContentLoaded", function(e){
         commentsUl.append(createdComments)
     }
 
-    document.add
+    document.addEventListener("click", function(e){
+        if (e.target.className === "like-button"){
+            console.log(e.target.parentNode.querySelector(".likes"))
+            const addLike = e.target.parentNode.querySelector(".likes")
+            addLike.textContent = `${parseInt(addLike.textContent) + 1} likes`
+
+            fetch("http://localhost:3000/images/1", {
+                method: "PATCH",
+                body: JSON.stringify({
+                    "likes": parseInt(addLike.textContent)
+                }),
+                headers: {
+                    "Content-type": "application/json",
+                    "Accept": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+        }
+    })
+
+    document.addEventListener("submit", function(e){
+        e.preventDefault()
+        console.log(e.target.comment.value)
+        const newComment = e.target.comment.value
+        const createNewComment = document.createElement("li")
+        createNewComment.textContent = newComment
+        commentsUl.append(createNewComment)
+        form.reset()
+    })
     
 })
