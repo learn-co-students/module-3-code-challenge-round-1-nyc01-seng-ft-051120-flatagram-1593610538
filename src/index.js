@@ -23,6 +23,10 @@ function renderImage(img){
     let title = img[0].title
     imagePlace.src = picture
     titlePlace.innerText = title
+
+    let likes = document.querySelector("body > div > div > div > span")
+    //console.log(likes.textContent);
+    likes.textContent = img[0].likes + " likes"
     //console.dir(imagePlace.src);
 }
 
@@ -43,12 +47,30 @@ let heart = document.querySelector("body > div > div > div > button")
 heart.addEventListener('click', function(e){
     let heartButton = e.target
     //console.log(heartButton.previousElementSibling.textContent);
-    let currentLikes = praseInt(heartButton.previousElementSibling.textContent);
-    let newLikes =currentLikes + 1
-    heartButton.previousElementSibling.textContent + newLikes
+    let currentLikes = parseInt(heartButton.previousElementSibling.textContent);
+    //console.log(currentLikes);
+    
+    let newLikes = currentLikes + 1
+    //console.log(newLikes);
+    
+    heartButton.previousElementSibling.textContent = newLikes
 
-    fetch("http://localhost:3000/images")
+    fetch("http://localhost:3000/images/1", {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            likes: newLikes
+        })
+    })
 })
+
+// 3.  Add a comment (no persistance needed)
+let postBtn = document.querySelector("body > div > div > form > button")
+postBtn.addEventListener("click", function )
+
 
 
 fetchComments()
@@ -64,4 +86,3 @@ fetchImage()
 
 
 
-// 3.  Add a comment (no persistance needed)
