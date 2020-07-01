@@ -1,7 +1,7 @@
 // write your code here
 document.addEventListener('DOMContentLoaded',function(){  
 let getPictureCard = document.querySelector('.image-card')
-
+let ul = document.querySelector('.comments')
 const picApi = () => {fetch('http://localhost:3000/images?_embed=comments')
 .then(resp => resp.json())
 .then(json => json.forEach(pic => showPic(pic)))}
@@ -14,7 +14,7 @@ const showPic = (pic) =>{
   title.textContent = pic.title
   image.src= pic.image
   like.textContent = `${pic.likes} likes`
-
+  pic.comments.forEach(e => ul.innerHTML =  )
 }
 
 picApi()
