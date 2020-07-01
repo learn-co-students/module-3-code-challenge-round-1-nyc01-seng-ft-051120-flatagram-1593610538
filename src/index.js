@@ -14,7 +14,8 @@ const showPic = (pic) =>{
   title.textContent = pic.title
   image.src= pic.image
   like.textContent = `${pic.likes} likes`
-  pic.comments.forEach(e => ul.innerHTML =  )
+  let li = document.createElement('li')
+pic.comments.forEach(e =>e.content)
 }
 
 picApi()
