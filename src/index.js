@@ -15,8 +15,14 @@ const showPic = (pic) =>{
   image.src= pic.image
   like.dataset.id = pic.id
   like.innerHTML = `<span>${pic.likes}</span> likes`
-  let li = document.createElement('li')
-pic.comments.forEach(e =>e.content)
+ 
+pic.comments.forEach(function(e){
+   let li = document.createElement('li')
+   let text = document.createTextNode(e.content)
+   li.appendChild(text);
+   ul.appendChild(li)
+}
+  )
 }
 
 document.addEventListener('click',function(e){
@@ -33,9 +39,14 @@ body: JSON.stringify({
  }
 
 })}})
+let commentForm = document.querySelector('.comment-form')
 
-document.addEventListener('submit',function(e) {
-  console.log(e)
+commentForm.addEventListener('submit',function(e) {
+  e.preventDefault()
+  let newLi = document.createElement("li")
+  newLi.innerHTML = e.target.comment.value
+  ul.append(newLi)
+  commentForm.reset()
 })
 
 picApi()
