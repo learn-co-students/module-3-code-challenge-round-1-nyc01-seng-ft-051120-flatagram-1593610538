@@ -16,12 +16,29 @@ document.addEventListener('DOMContentLoaded', () =>{
         let likes = document.querySelector('.likes')
         likes.innerText = `${image.likes} likes`
 
-        let comment = document.querySelector('.comments')
-        comment.innerHTML = image.comment
-        console.log(comment);
+        // comment.innerHTML = addComment(image.comments)
         
     }
+
+    fetch('http://localhost:3000/comments')
+    .then(response => response.json())
+    .then(Comments => {
+        comments.forEach(c => {
+            renderComment(c)
+        });
+    })
+
+    const renderComment =  c => {
+        let comment = document.querySelector('.comments')
+        console.log(comment);
+
+    }
+
 })
+
+
+
+
 
 /*
 1. fetch the image
