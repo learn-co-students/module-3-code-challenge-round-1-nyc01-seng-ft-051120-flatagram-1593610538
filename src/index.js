@@ -22,7 +22,7 @@ function fetchComments() {
     .then(response => response.json())
     .then(comments => {
         comments.forEach(comment => {
-            console.log(commment)
+            addComments(comment)
         })
     })
 }
@@ -45,7 +45,26 @@ function addImage(image) {
 }
 
 function addComments(comment) {
-    let commentsUl = document.querySelector(".comments")
-    commentsUl.innerHTML = `<li>${comment.content}</li>`
+        let commentsUl = document.querySelector(".comments")
+        let commentLi = document.createElement("li")
+        commentLi.innerText = `${comment.content}`
+        commentsUl.append(commentLi)
 }
 
+document.addEventListener("submit", function(e) {
+    e.preventDefault()
+    let form = document.querySelector(".comment-form")
+    let comment = form.comment.value
+    let commentsUl = document.querySelector(".comments")
+    let commentLi = document.createElement("li")
+    commentLi.innerText = `${comment}`
+    commentsUl.append(commentLi)
+    form.reset()
+})
+
+document.addEventListener("click", function(e) {
+    if (e.target.className ==== "like-button") {
+        let likesSpan = document.querySelector(".likes")
+        let likes = parseInt(likesSpan.innerText)
+    }
+})
