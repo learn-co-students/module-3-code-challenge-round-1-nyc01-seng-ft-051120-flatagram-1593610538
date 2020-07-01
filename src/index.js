@@ -3,17 +3,16 @@ let commentForm = document.querySelector('form')
 let submitBtn = commentForm.querySelector('button')
 
 document.addEventListener('DOMContentLoaded', () => {
-fetchImage()
-likesListener()
-document.addEventListener('submit', (event) => {
-    event.preventDefault()
-    let commentLi = document.createElement('li')
-    commentLi.innerText = commentForm.querySelector('input').value
-    let commentsDiv = document.querySelector('ul')
-    commentsDiv.appendChild(commentLi)
-    commentForm.querySelector('input').value = ""
-
-})
+    fetchImage()
+    likesListener()
+    document.addEventListener('submit', (event) => {
+        event.preventDefault()
+        let commentLi = document.createElement('li')
+        commentLi.innerText = commentForm.querySelector('input').value
+        let commentsDiv = document.querySelector('ul')
+        commentsDiv.appendChild(commentLi)
+        commentForm.querySelector('input').value = "" //wanted to reset comment bar to empty for next comment       
+    })
 })
 
 
