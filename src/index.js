@@ -1,17 +1,45 @@
 
 
 const imageCard = document.querySelector(`.image-container`)
+const imageUrlContainer = document.querySelector(`.image`)
 const likesSpan = document.querySelector(`.likes`)
-const commentsUL = document.querySelector(`.comments`)
+const commentsUl = document.querySelector(`.comments`)
 const titleH1 = document.querySelector(`.title`)
 const likeButton = document.querySelector(`.like-button`)
 const commentForm = document.querySelector(`.comment-form`)
 const commentButton = document.querySelector(`.comment-button`)
 
+imageUrl = "http://localhost:3000/images/1"
+commentsUrl = "http://localhost:3000/comments"
+commentUrl = "http://localhost:3000/comments/:id"
 
-imageUrl =  `http://localhost:3000/images/1`
-commentsUrl =  `http://localhost:3000/comments`
-commentUrl = `http://localhost:3000/comments/:id`
+document.addEventListener(`DOMContentLoaded`, e => {
+
+getImage(e)
+
+})
+
+const getImage = () => {
+
+    fetch(imageUrl)
+    .then(response => response.json())
+    .then(image => renderImage(image))  
+}
+
+
+const renderImage = (image) => {
+    
+    titleH1.innerText = `${image.title}`
+    imageUrlContainer.src = `${image.image}`
+    likesSpan.innerText = `${image.likes} likes`
+    commentsUl.innerText = ``
+    console.log(image.comments)
+        image.comments.forEach(comment => {
+        commentLi = document.createElement(`li`)
+        commentLi.innerText = `${comment.content}`
+        commentsUl.append(commentLi)
+        })
+}
 
 
 // - See the image received from the server, including its title, likes and comments when the page loads
