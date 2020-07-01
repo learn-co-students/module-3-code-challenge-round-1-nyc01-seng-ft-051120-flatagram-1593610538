@@ -63,8 +63,24 @@ document.addEventListener("submit", function(e) {
 })
 
 document.addEventListener("click", function(e) {
-    if (e.target.className ==== "like-button") {
+    if (e.target.className === "like-button") {
         let likesSpan = document.querySelector(".likes")
         let likes = parseInt(likesSpan.innerText)
+        likes += 1
+    fetch("http://localhost:3000/images/1", {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application.json"
+        }, body: JSON.stringify({"likes": `${likes}`})
+    }).then(response => response.json())
+    .then(like => {
+        likesSpan.innerText = `${likes} likes`
+    })
+        
     }
 })
+
+function increaseLikes() {
+    
+}
