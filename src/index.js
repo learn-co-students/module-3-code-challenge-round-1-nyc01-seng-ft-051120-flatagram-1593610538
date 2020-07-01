@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     removeInitialComments()
+    addDownVoteButton()
 
     const thisLikeButton = imgContainerDiv.querySelector('button')
     
@@ -36,6 +37,18 @@ document.addEventListener('DOMContentLoaded', function(){
 
         form.reset()
     })
+
+    // const downVoteButton = document.getElementById('down-vote-button')
+    // downVoteButton.addEventListener('click', function(e) {
+    //     const div = e.target.closest('div')
+    //     const likeButton = div.querySelector('button')
+    //     const thisLikeCount = likeButton.dataset.likes
+    //     const imgId = likeButton.dataset.id
+    //     thisLikeCount = parseInt(thisLikeCount) - 1
+    //     fetchPatchLike(imgIndexUrl, imgId, thisLikeCount)
+
+    // })
+
 
     const commentUl = document.querySelector('.comments')
     commentUl.addEventListener('click', function(e){
@@ -99,6 +112,14 @@ function fetchImage(url, imageId) {
         renderImage(imgData)
     })
     .catch(error => alert(error))
+}
+
+function addDownVoteButton() {
+    const likeButton = imgContainerDiv.querySelector('button')
+    const downVoteButton = document.createElement('button')
+    downVoteButton.textContent = 'Dislike'
+    downVoteButton.id = 'down-vote-button'
+    likeButton.append(downVoteButton)
 }
 
 function renderImage(imgData) {
