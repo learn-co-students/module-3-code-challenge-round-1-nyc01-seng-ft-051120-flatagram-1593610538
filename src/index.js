@@ -22,21 +22,71 @@ document.addEventListener("DOMContentLoaded", function(e){
 
 
 
-    function renderImageAndTitle(imageObj){
+    function renderImageDeets(imageObj){
         const imageCard = document.getElementsByClassName("image-card")[0]
         const title = imageCard.querySelector('h2')
         title.innerText = `${imageObj.title}`
         const image = imageCard.querySelector('img')
         image.src = `${imageObj.image}`
-        const likes = 
+        const likes = imageCard.querySelector('div').querySelector('span')
+        likes.innerText = `${imageObj.likes} likes`
     }
-
 
     function fetchImageDetails(url){
-
         fetch(url)
+        .then(resp => resp.json())
+        .then(imgObject => renderImageDeets(imgObject))
+        .catch (error => console.log(error))
     }
-    renderImageDetails("http://localhost:3000/images/1")
+    fetchImageDetails("http://localhost:3000/images/1")
+
+
+    function updateLikesWithPatch(url, num){
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                likes: num
+            })
+        })
+        .then(resp => resp.json())
+        .then(console.log)
+        .catch (error => console.log(error))
+    }
+
+
+    document.addEventListener("click", function(e){
+
+        if (e.target.className === 'like-button'){
+
+            const likesText = e.target.parentNode.querySelector('span')
+            const currentNum = parseInt(likesText.innerText.split(" ")[0])
+            const newNum = currentNum +1
+
+            likesText.innerText = `${newNum} likes`
+
+            updateLikesWithPatch("http://localhost:3000/images/1", newNum)
+        }
+
+    })
+
+    
+    document.addEventListener("submit", function(e){
+        e.preventDefault()
+
+        const form = e.target
+        const newComment = 
+            {
+            imageId: 1,
+            content: form.comment.value
+            }
+
+        renderComment(newComment)
+        form.reset()
+    })
 
 
 
