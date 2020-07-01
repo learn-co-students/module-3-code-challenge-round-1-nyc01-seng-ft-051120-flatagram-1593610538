@@ -32,6 +32,7 @@ const renderImage = (image) => {
     titleH1.innerText = `${image.title}`
     imageUrlContainer.src = `${image.image}`
     likesSpan.innerText = `${image.likes} likes`
+    likesSpan.dataset.likes = image.likes
     commentsUl.innerText = ``
     console.log(image.comments)
         image.comments.forEach(comment => {
@@ -41,21 +42,34 @@ const renderImage = (image) => {
         })
 }
 
+document.addEventListener('click', function (e) {
+if (e.target = likeButton)
+addLike()
+}
 
-// - See the image received from the server, including its title, likes and comments when the page loads
+const addLike = () => {
+currentLikes = likeSpan.dataset.likes
+totalLikes = parseInt(currentLikes) + 1
+
+const likesObj = {
+    method: "PATCH",
+    headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    },
+    body: JSON.stringify({likes: totalLikes})
+    }
+
+    fetch(imageUrl, likesObj)
+    // .then(resp => resp.json())
+    // .then(json => updateLikes(json))
+}
 
 
 
-// dom content loaded with render image function
-//getImage function
-//fetch to imageUrl 
-//renderimage function called
+}
 
-// 1.
-//renderImage function (image)
-// take image url title likes and comments
-//set each as info from image 
-// set likes and id in dataset
+   
 
 //2. click event listener on like button
 // inside event listener a function addLikes
