@@ -5,7 +5,11 @@ const imgContainerDiv = document.querySelector(".image-container")
 document.addEventListener('DOMContentLoaded', function(){
     fetchImage(imgIndexUrl, 1)
 
+
+    removeInitialComments()
+
     const thisLikeButton = imgContainerDiv.querySelector('button')
+    
     thisLikeButton.addEventListener('click', function(e){
         let thisLikeCount = thisLikeButton.dataset.likes
         const thisImgId = thisLikeButton.dataset.id 
@@ -13,6 +17,14 @@ document.addEventListener('DOMContentLoaded', function(){
         fetchPatchLike(imgIndexUrl, thisImgId, thisLikeCount)
     })
 
+    const commentForm = imgContainerDiv.querySelector('.comment-form')
+    commentForm.addEventListener('submit', function(e){
+        e.preventDefault()
+        const form = e.target
+        const comment = form.comment.value
+        addCommentWithoutPersistance(comment)
+        form.reset()
+    })
 })
 
 
@@ -57,14 +69,24 @@ function fetchPatchLike(url, imageId, likeCount) {
         renderImage(imgData)
     })
     .catch(error => alert(error))
-
-
 }
 
 
-// - Click on the heart icon to increase image likes,
-//  and still see them when I reload the page
+function addCommentWithoutPersistance(comment) {
+    const commentUl = imgContainerDiv.querySelector('.comments')
+    const thisComment = document.createElement('li')
+    thisComment.className = 'user-comment'
+    thisComment.textContent = comment
+    commentUl.appendChild(thisComment)
+}
 
+function removeInitialComments() {
+    const commentUl = imgContainerDiv.querySelector('.comments')
 
+    const commentChildrenArray = Array.from(commentUl.children)
+    commentChildrenArray.forEach(commentChild =>{
+        commentChild.remove()
+    })
+}
 
 
