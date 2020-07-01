@@ -6,6 +6,7 @@ const COMMENTS_URL = `${BASE_URL}/comments`
 document.addEventListener("DOMContentLoaded",()=>{
   fetcher(IMGES_URL,displayDog,console.log)
   addClickEvents()
+  addSubmitEvent()
 })
 
 function fetcher (url,successCallback,errorCallback,data = {},method="GET"){
@@ -36,9 +37,10 @@ function isEmptyObject(data){
 
 function displayDog(dog){
   const imageCard =  document.querySelector(".image-card")
+  imageCard.dataset.id = dog.id
   imageCard.querySelector(".title").textContent = dog.title
   imageCard.querySelector(".image").src = dog.image
-  imageCard.querySelector(".likes").textContent = `${dog.likes} likes`
+  updateDogLikes(dog)
   imageCard.querySelector(".like-button").dataset.id = dog.id
   imageCard.querySelector(".comments").innerHTML = createDogComments(dog.comments)
 }
@@ -48,12 +50,33 @@ function createDogComments(comments){
   comments.forEach(comment => {
     commentsHTMLString += `<li data-comment-id="${comment.id}">${comment.content}</li>`
   });  
+  console.log(comments);
+  
   return commentsHTMLString
 }
 
 function addClickEvents(){
   document.querySelector("button.like-button").addEventListener("click", e =>{
     id = e.target.dataset.id
-    
+    likes = parseInt(e.target.dataset.likes) + 1
+    fetcher(IMGES_URL,updateDogLikes,console.log,{likes},"PATCH")
   })
 }
+
+function updateDogLikes(dog){
+  const imageCard =  document.querySelector(".image-card")
+  imageCard.querySelector(".likes").textContent = `${dog.likes} likes`
+  imageCard.querySelector(".like-button").dataset.likes = dog.likes
+}
+
+function addSubmitEvent(){
+  document.querySelector(".comment-form")
+  .addEventListener("submit", e => {
+    e.preventDefault()
+    const content = e.target.comment.value
+    const imageId = parseInt(e.target.parentNode.dataset.id)
+    fetcher(COMMENTS_URL,console.log,console.log,{imageId,content},"POST")     
+  })
+}
+
+functi
