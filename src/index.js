@@ -64,6 +64,14 @@ function addClickEvents(){
   document.querySelector("button.dislike-button").addEventListener("click", e =>{
     incLikes(e.target,-1)
   })
+
+  document.querySelector(".comments").addEventListener("click",e => {
+    if (e.target.className === "delete-button"){
+      const id = e.target.parentNode.dataset.commentId
+      fetcher(`${COMMENTS_URL}/${id}`,console.log,console.log,{},"DELETE")
+      e.target.parentNode.remove()
+    }
+  })
 }
 
 function incLikes(target,num){
