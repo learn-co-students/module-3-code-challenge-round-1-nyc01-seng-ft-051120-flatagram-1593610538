@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', ev=>{
             
             console.log('i am clicked!')
              unlikePost(document.querySelector('.likes'))
+        } else if(e.target.innerText==='X'){
+            deleteComment(e.target.closest('LI'))
         }
     })
 })
@@ -55,6 +57,14 @@ const renderPost=post=>{
       const ul=document.querySelector('.comments')
       const li=document.createElement('li')
       li.innerText=comment.content
+
+      const delButton=document.createElement('button')
+      delButton.className='like-button'
+      delButton.style.color='red'
+      delButton.innerText='X'
+
+      li.id=comment.id
+      li.appendChild(delButton)
       ul.appendChild(li)
 
   }
@@ -116,3 +126,14 @@ const renderPost=post=>{
      unlikeSpan.textContent=updatedPost.likes
  })
 }
+ const deleteComment=li=>{
+     fetch(`http://localhost:3000/comments/${li.id}`,{
+         method: "DELETE"
+     }).then(res=>res.json())
+     .then(result=>{
+         if(result){
+             li.remove()
+         }    
+         
+     })
+ }
