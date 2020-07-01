@@ -27,8 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(images)
         const imageCard = document.querySelector(".image-card")
         images.forEach(image => {
+            console.log(image.image)
             let picture = document.querySelector(".image")
-            picture.innerHTML = `<img src="${image.image}" />`
+            picture.src = `${image.image}`
             let title = document.querySelector(".title")
             title.innerText = `${image.title}`
             let likes = document.querySelector(".likes")
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    function getComments(comments) {
+     function getComments(comments) {
         console.log(comments)
 
         const commentsLi = Array.from(document.getElementsByTagName("li"))
@@ -45,18 +46,27 @@ document.addEventListener('DOMContentLoaded', () => {
             let allComments = document.querySelector(".comments")
             allComments.innerText = `${comment.content}`
         })
-    }
+     }
         
 
  // - Click on the heart icon to increase image likes, and still see them when I reload the page
 
-  function addLike() {
-    document.addEventListener("click", (e) => {
-        e.target.matches("like-button")
+     function addLike() {
+     document.addEventListener("click", (e) => {
+        console.log(e.target)
+        if (e.target.matches(".like-button")){
             const button = e.target
             const likeSpan = button.parentNode.querySelector("span")
             likeSpan.textContent = parseInt(likeSpan.textContent) + 1
+        }
         })
-  }
+
+    }
+
+   function addComments () {
+      document.addEventListener("submit", (e) => {
+          e.preventDefault
+      })
+   }
+  // - Add a comment (no persistance needed)
 })
-// - Add a comment (no persistance needed)
