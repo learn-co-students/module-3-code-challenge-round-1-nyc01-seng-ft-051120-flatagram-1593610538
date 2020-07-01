@@ -4,13 +4,18 @@ document.addEventListener('DOMContentLoaded', ev=>{
     fetchComment()
     document.addEventListener('click', e=>{
         e.preventDefault()
-        if(e.target.className==='like-button'){
+        if(e.target.id==='upVote'){
             
             console.log('i am clicked!')
              likePost(e.target.previousElementSibling)
         } else if(e.target.textContent==='Post'){
             postComment(e.target.closest('form'))
             e.target.closest('form').reset()
+        }
+        else if(e.target.id==='downVote'){
+            
+            console.log('i am clicked!')
+             unlikePost(document.querySelector('.likes'))
         }
     })
 })
@@ -34,6 +39,7 @@ const renderPost=post=>{
    image['src']=`${post.image}`
    likes.innerText=post.likes
    card.id=post.id
+   console.log(likes)
 }
 
  const fetchComment=()=>{
@@ -91,3 +97,22 @@ const renderPost=post=>{
            renderComment(postedComment)
        })
    }
+
+   const unlikePost=(unlikeSpan)=>{
+    const like= parseInt(unlikeSpan.textContent)-1
+ const card=document.querySelector('.image-card')
+ fetch(`http://localhost:3000/images/${card.id}`,{
+     method: "PATCH",
+     headers: {
+         "content-type": "application/json",
+         "accept": "application/json"
+     },
+     body: JSON.stringify({
+         likes: like
+     })
+ })
+ .then(res=>res.json())
+ .then(updatedPost=>{
+     unlikeSpan.textContent=updatedPost.likes
+ })
+}
