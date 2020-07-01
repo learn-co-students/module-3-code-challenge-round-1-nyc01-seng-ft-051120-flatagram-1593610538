@@ -1,4 +1,5 @@
 
+// Note: completed core deliverables plus comment persistance from AD. Did not complete delete and did not attempt downvote.
 
 const imageCard = document.querySelector(`.image-container`)
 const imageUrlContainer = document.querySelector(`.image`)
@@ -8,7 +9,6 @@ const titleH1 = document.querySelector(`.title`)
 const likeButton = document.querySelector(`.like-button`)
 const commentForm = document.querySelector(`.comment-form`)
 const commentButton = document.querySelector(`.comment-button`)
-const commentInput = document.querySelector(`.comment-input`)
 
 imageUrl = "http://localhost:3000/images/1"
 commentsUrl = "http://localhost:3000/comments"
@@ -82,8 +82,8 @@ const addComment = (newComment) => {
     commentLi = document.createElement(`li`)
     commentLi.innerText = `${newComment}`
     commentsUl.append(commentLi)
-    commentForm.reset()
     postComment(newComment)
+    commentForm.reset()
     }
 
 const postComment = (newComment) => {
@@ -94,39 +94,33 @@ const postComment = (newComment) => {
             "content-type": "application/json",
             "accept": "application/json"
         },
-        body: JSON.stringify({comment: newComment}) 
+        body: JSON.stringify({
+            content: newComment,
+            imageId: 1
+        }) 
     }
-
-    fetch(imageUrl, options)
+    fetch("http://localhost:3000/comments/", options)
         .then(response => response.json())
         .then(getImage())
-    
 }
 
+// uncompleted Delete (never made the button):
+
+    //  function deleteComment(button) {
+    //      const deleteObj = {
+    //          method: "DELETE"
+    //      }
  
-
-
-//2. click event listener on like button
-// inside event listener a function addLikes
-// else if target is form, submit listener
-
-//add likes:
-// takes currentLikes and adds a like
-//current likes comes from dataset on likes 
-// patch request updates likes
-// note: you can increase likes without reloading the page, but it makes a post each click
-
-// 3. addComment
-// define form as form
-// create commentObj with comment text
-// post request with comment obj
-// renderpage function
+    //      fetch(`${commentURL}${button.dataset.id}`, deleteObj)
+    //      .then(removeComment(button))
+    //  }
+ 
+    //  function removeComment(button) {
+    //      button.parentNode.remove()
+    //  }
+   
 
 
 
 
 
-
-
-// - Click on the heart icon to increase image likes, and still see them when I reload the page
-// - Add a comment (no persistance needed)
