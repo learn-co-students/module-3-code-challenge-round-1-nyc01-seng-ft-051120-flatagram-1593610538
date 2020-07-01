@@ -20,8 +20,6 @@ fetch(fetchURL)
     })
 }
 
-
-
 function postDog(dog){
     let title = document.querySelector('.title')
     let image = document.querySelector('.image')
@@ -33,7 +31,6 @@ function postDog(dog){
     likes.innerText = `${dog.likes}`
     comments = makeComments(dog)
 }
-
 
 function makeComments(dog){
     let commentSection = document.querySelector('.comments')
@@ -64,11 +61,9 @@ document.addEventListener('click', function(e){
              "accept": "application/json"
          },
          body: JSON.stringify (formObj)
-     })
-     .then(response => response.json())
-     .then(console.log)
+      })
 
-     }
+    }
 })
 
 
@@ -79,7 +74,7 @@ document.addEventListener('submit', function(e){
         let input = document.querySelector('.comment-input')
         let newComment = input.value
         let li = document.createElement('li')
-        li.innerHTML = newComment
+        li.innerText= newComment
         let ulContainer = document.querySelector('.comments')
         ulContainer.append(newComment)
         form.reset()
