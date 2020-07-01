@@ -62,13 +62,13 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     const createCommentLi = comment => {
         const li = document.createElement("li")
-        li.id = comment.id
+        // li.id = comment.id
         li.textContent = comment.content
         return li
     }
 
     const renderCommentLi = li => {
-        commentUl = document.querySelector("ul.comments")
+        const commentUl = document.querySelector("ul.comments")
         commentUl.append(li)
     }
 
@@ -90,10 +90,10 @@ document.addEventListener("DOMContentLoaded", function(e){
         form.addEventListener("submit", function(e){
             e.preventDefault()
             const input = form.querySelector('input').value
-            li = createCommentLi(input)
-            console.log(li);
-            
-            renderCommentLi(li)
+            const li = document.createElement("li")
+            li.textContent = input
+            const commentUl = document.querySelector("ul.comments")
+            commentUl.append(li)
             form.reset()
                     
         
