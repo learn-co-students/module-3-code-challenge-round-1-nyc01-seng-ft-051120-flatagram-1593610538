@@ -27,10 +27,11 @@ document.addEventListener('DOMContentLoaded', function(){
             alert("Invalid Entry: You must say something")
         }
         else {
-            addCommentWithoutPersistance(comment)
+            // addCommentWithoutPersistance(comment)
             const imageId = form.dataset.imgid
-            const commentObj = createCommentObj(imageId, comment)
-            addCommentToDatabase(commentsIndexUrl, commentObj) 
+            // const commentObj = createCommentObj(imageId, comment)
+            // addCommentToDatabase(commentsIndexUrl, commentObj) 
+            addCommentToDatabase(commentsIndexUrl, imageId, comment)
         }
 
         form.reset()
@@ -48,6 +49,46 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     })
+
+
+    function addCommentToDatabase(url, imageId, comment) {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify( {
+                "imageId": `${imageId}`,
+                "content": `${comment}`
+            })
+        })
+        .then(resp => resp.json())
+        .then(commentData => addCommentWithPersistance(commentData))
+        .catch(error => alert(error))
+    }
+    
+    function addCommentWithPersistance(commentData) {
+        const commentUl = imgContainerDiv.querySelector('.comments')
+        const thisComment = document.createElement('li')
+        thisComment.className = 'user-comment'
+        thisComment.textContent = commentData.content
+        thisComment.dataset.id = commentData.id
+        const deleteButton = document.createElement('button')
+        deleteButton.dataset.id = commentData.id
+        deleteButton.dataset.imageid = commentData.imageId
+        deleteButton.textContent = 'x'
+        deleteButton.className = 'delete-button'
+        // deleteButton.addEventListener('click', function(e){
+        //         const deleteButton = e.target
+        //         const imgId = deleteButton.dataset.imageid
+        //         const commentId = deleteButton.dataset.id
+        //         removeComment(commentsIndexUrl, commentId)
+        //         removeCommentFromLi(commentId)
+        // })
+        thisComment.append(deleteButton)
+        commentUl.appendChild(thisComment)
+    }
 })
 
 
@@ -103,6 +144,12 @@ function addCommentWithoutPersistance(comment) {
     const thisComment = document.createElement('li')
     thisComment.className = 'user-comment'
     thisComment.textContent = comment
+    // const deleteButton = document.createElement('button')
+    // deleteButton.dataset.id = commentId 
+    // deleteButton.dataset.imageid = imageId
+    // deleteButton.textContent = 'x'
+    // deleteButton.className = 'delete-button'
+    thisComment.append(deleteButton)
     commentUl.appendChild(thisComment)
 }
 
@@ -117,19 +164,6 @@ function removeInitialComments() {
 
 
 
-function addCommentToDatabase(url, commentObj) {
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(commentObj)
-    })
-    .then(resp => resp.json())
-    .then(commentData => commentData)
-    // .then(error => alert(error))
-}
 
 
 
