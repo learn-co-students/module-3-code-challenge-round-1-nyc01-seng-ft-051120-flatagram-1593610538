@@ -13,9 +13,10 @@
 // Add a comment (no persistance needed)
 
 let images = []
-const imageTitle = document.querySelector('#title')
-const imgSrc = document.querySelector('#image')
-const likes = document.querySelector('#likes')
+const imageCard = document.querySelector('#image-card')
+const likesSection = document.querySelector('#likes-section')
+const commentsUL = document.querySelector('#comments')
+
 
 document.addEventListener("DOMContentLoaded",(event)=>{
     console.log('DOM loaded');
@@ -28,13 +29,18 @@ function getImages(){
     fetch('http://localhost:3000/images/1')
     .then(response => response.json())
     .then(images => console.log(images))
-    .then(images => renderImages(images))
+    // .then(images => renderImages(images))
 
-    
-
-function renderImages(){
-    images.forEach(image =>{
-        imageTitle.innerText = `${image.title}`
-
-    })
 }
+
+// function renderImages(){
+//     fetch('http://localhost:3000/images/1')
+        
+//     images.forEach(image =>{
+//         imageCard.innerHTML  = `
+//         <h2>${images.title}</h2>
+//         <img src=${images.image}>
+//         `
+//     })
+// }
+
