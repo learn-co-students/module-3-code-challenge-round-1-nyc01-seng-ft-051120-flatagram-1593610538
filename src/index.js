@@ -1,19 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(e) {
     fetchImages()
     fetchComments()
-    addImage()
 })
 
-let comments = []
-
 function fetchImages() {
-    fetch("http://localhost:3000/images")
+    fetch("http://localhost:3000/images/1")
     .then(response => response.json())
-    .then(images => {
-        images.forEach(image => {
-            console.log(image)
-            addImage(image)
-        })
+    .then(image => {
+        console.log(image)
+        addImage(image)
     })
 }
 
@@ -22,6 +17,7 @@ function fetchComments() {
     .then(response => response.json())
     .then(comments => {
         comments.forEach(comment => {
+            console.log(comment)
             addComments(comment)
         })
     })
@@ -33,7 +29,7 @@ function addImage(image) {
     <h2 class="title">${image.title}</h2>
     <img src=${image.image} class="image">
     <div class="likes-section">
-      <span class="likes">0 likes</span>
+      <span class="likes">${image.likes} likes</span>
       <button class="like-button">♥</button>
     </div>
     <ul class="comments">
@@ -63,24 +59,30 @@ document.addEventListener("submit", function(e) {
 })
 
 document.addEventListener("click", function(e) {
-    if (e.target.className === "like-button") {
+    if (e.target.className === "like-button") { 
         let likesSpan = document.querySelector(".likes")
         let likes = parseInt(likesSpan.innerText)
         likes += 1
-    fetch("http://localhost:3000/images/1", {
-        method: "PATCH",
+        likesSpan.innerText = `${likes} likes`
+        let configObj = {
+            method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             "Accept": "application.json"
-        }, body: JSON.stringify({"likes": `${likes}`})
-    }).then(response => response.json())
-    .then(like => {
-        likesSpan.innerText = `${likes} likes`
+        }, body: JSON.stringify({"likes": likes})
+        }
+    fetch("http://localhost:3000/images/1", configObj)
+    .then(response => response.json())
+    .then(data =>
+        console.log("success", data)
+    )
+    .catch(error => {
+        console.log("error", error)
     })
         
     }
 })
 
 function increaseLikes() {
-    
+   
 }
