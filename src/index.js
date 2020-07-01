@@ -2,6 +2,15 @@
 document.addEventListener("DOMContentLoaded", function(e){
 
 
+    // function renderComment(comment){
+    //     const commentsUl = document.querySelector('ul')
+    //     const commentLi = document.createElement('li')
+    //     commentLi.innerHTML = 
+    //         `<p>${comment.content}</p>
+    //         <button value=""`
+    //     commentsUl.append(commentLi)
+    // }
+
     function renderComment(comment){
         const commentsUl = document.querySelector('ul')
         const commentLi = document.createElement('li')
@@ -41,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function(e){
     fetchImageDetails("http://localhost:3000/images/1")
 
 
+
+
     function updateLikesWithPatch(url, num){
         fetch(url, {
             method: 'PATCH',
@@ -57,9 +68,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         .catch (error => console.log(error))
     }
 
-
     document.addEventListener("click", function(e){
-
         if (e.target.className === 'like-button'){
 
             const likesText = e.target.parentNode.querySelector('span')
@@ -70,33 +79,40 @@ document.addEventListener("DOMContentLoaded", function(e){
 
             updateLikesWithPatch("http://localhost:3000/images/1", newNum)
         }
-
     })
 
+
+
+    function persistNewComment (url, newCommentObj){
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(newCommentObj)
+        })
+        .then(resp => resp.json())
+        .then(comment=> renderComment(comment))
+        .catch (error => console.log(error))
+    }
     
     document.addEventListener("submit", function(e){
         e.preventDefault()
 
         const form = e.target
-        const newComment = 
+        const newCommentObj = 
             {
             imageId: 1,
             content: form.comment.value
             }
 
-        renderComment(newComment)
+        // renderComment(newCommentObj)
+        persistNewComment ("http://localhost:3000/comments", newCommentObj)
         form.reset()
     })
 
 
 
-
-
-
-
-
-
-
-
-
+    
 })
