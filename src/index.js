@@ -11,6 +11,29 @@ const commentHandler = () => {
     li.innerText = input.value
      ul.appendChild(li)
      input.value = ''
+
+     commentObj = {
+       "id": 1,
+       "imageId": 1,
+       "content": `${input.value}`
+     }
+
+     fetch("http://localhost:3000/comments",{
+           method: "POST",
+           headers: {
+           'Content-Type' : 'application/json'
+             },
+           body: JSON.stringify(commentObj)
+         })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+
+ 
+            })
+          .catch((error) => {
+            console.error('Error:', error);
+          })
   })
 
 }
