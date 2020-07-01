@@ -6,6 +6,8 @@
 // - Click on the heart icon to increase image likes, and still see them when I reload the page
 // - Add a comment (no persistance needed)
 
+    ///// test.js ///// 
+
 document.addEventListener("DOMContentLoaded", () => {
 
 
@@ -14,25 +16,30 @@ document.addEventListener("DOMContentLoaded", () => {
     // shows image onto browser 
 
         const imageContainer = document.getElementsByClassName('image-container')
-        const image = 
-        image.innerHTML =   `
-
-                                ${imageObject.id}
-                                ${imageObject.title}
-                                ${imageObject.likes}
-                                ${imageObject.image}
+        const imageDiv = document.getElementsByClassName('image-card') 
+        imageDiv.innerHTML =   `
+        <h2 class="title">${immgObject.title}</h2>
+        <img src="./assets/image-placeholder.jpg" class="image" />
+        <div class="likes-section">
+            <span class="likes">0 likes</span>
+            <button class="like-button">♥</button>
+        </div>
+                                ${imgObject.id}
+                                
+                                ${imgObject.likes}
+                                ${imgObject.image}
         
                             `
 
     }
-
-
 
     function fetchImage(url) {
     // gets image data from server 
         .then(response => response.json())
         .then(imageObject => renderImage(imageObject))
     }
+
+// test.js
 
 
 
