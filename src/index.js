@@ -49,21 +49,26 @@ const likesListener = () => {
     const likesBtn = likesBloc.querySelector('button')
     likesBtn.addEventListener('click', (event) => {
         if (event.target === likesBtn){
-            currentLikes = document.querySelector('.likes-section')
+            let targetDiv = document.querySelector('.likes-section')
+            let currentLikes = parseInt(targetDiv.querySelector('span').innerText[0])
+            currentLikes = currentLikes + 1
             console.log(currentLikes)
 
-            // fetch("http://localhost:3000/images/1", {
-            //     method: 'PATCH',
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //         "Accepts": "application/json"
-            //     },
-            //     body: JSON.stringify({
-            //         likes: (`${likes}` + 1)
-            //     })
-            // })
-            // .then(response => response.json())
-            // .then(likeCount => console.log(likeCount))
+
+            fetch("http://localhost:3000/images/1", {
+                method: 'PATCH',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accepts": "application/json"
+                },
+                body: JSON.stringify({
+                    likes: currentLikes 
+                })
+            })
+            .then(response => response.json())
+            .then(imageBack => {
+                targetDiv.querySelector('span').innerText = `${imageBack.likes} likes`
+            })
         }
     })
 }
