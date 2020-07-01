@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(e){
-    fetchImage()
     addComm()
+    fetchImage()
+    
 
     document.addEventListener('click', function(e){
         if (e.target.matches('.like-button')){
@@ -33,6 +34,14 @@ document.addEventListener('DOMContentLoaded', function(e){
                 body: JSON.stringify({
                     'likes': downLikes
                 })
+            })
+        }
+        else if (e.target.matches('.delete-button')){
+            commId = e.target.parentNode.dataset.id
+            comm = e.target.parentNode
+            comm.remove()
+            fetch(`http://localhost:3000/comments/${commId}`, {
+                method: 'DELETE'
             })
         }
         
@@ -74,6 +83,11 @@ function renderImage(image){
         comment.content
         commLi = document.createElement('li')
         commLi.textContent = comment.content
+        commLi.dataset.id = comment.id
+        commDel = document.createElement('button')
+        commDel.innerText = 'Delete'
+        commDel.className = 'delete-button'
+        commLi.append(commDel)
         imgCardComm.append(commLi)
     })
 
@@ -89,6 +103,11 @@ function addComm(){
 
         commLi = document.createElement('li')
         commLi.textContent = comment
+        commLi.dataset.id = comment.id
+        commDel = document.createElement('button')
+        commDel.innerText = 'Delete'
+        commDel.className = 'delete-button'
+        commLi.append(commDel)
         
         commUl = commForm.parentNode.querySelector('.comments')
         commUl.append(commLi)
