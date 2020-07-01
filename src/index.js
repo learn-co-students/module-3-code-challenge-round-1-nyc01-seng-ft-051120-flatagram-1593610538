@@ -12,12 +12,13 @@ const likesSection = document.querySelector(".likes-section");
 getImage = async () => {
   let json = {}
   try {
-    json = await (await fetch(`${IMAGES_URL}/1`)).json()
+    res = await fetch(`${IMAGES_URL}/1`)
+    json = await res.json()
+    console.log(json);
   } catch (error) {
-    console.log();
+    console.log(error);
   }
   return json
-
   // fetch(`${IMAGES_URL}/1`)
   //   .then(res => res.json())
   //   .then(json => {
@@ -25,11 +26,9 @@ getImage = async () => {
   //   })
 }
 
-requestPost = async () => {
-  const json = await getImage();
-  console.log(json);
-  
-  renderPost(json);
+reqPost = async () => {
+    let json = await getImage()
+    renderPost(json)
 }
 
 function renderPost(post) {
@@ -46,12 +45,22 @@ function renderComments(post) {
 
 likesSection.addEventListener('click', e => {
   if (e.target.className.includes("like-button")) {
+
+  likePost()
     
   }
 })
 
+likePost = async () => {
+  let json = await getImage();
+  json.likes = await (parseInt(json.likes) + 1).toString()
+  console.log("likes",json);
+  patchPost(json)
+}
 
-function patchPost(post) {
+
+patchPost = post => {
+
   fetch(
     `${IMAGES_URL}/1`,
     {
@@ -62,7 +71,7 @@ function patchPost(post) {
         "Content-type": "application/json; charset=UTF-8"
       },
       body: JSON.stringify({
-        image: `https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`,
+        image: `${post.image}`,
         likes: `${post.likes}`,
         title: `${post.title}`,
       })
@@ -71,4 +80,4 @@ function patchPost(post) {
 }
 
 
-requestPost()
+reqPost()
