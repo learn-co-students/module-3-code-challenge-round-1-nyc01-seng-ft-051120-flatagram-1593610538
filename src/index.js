@@ -13,6 +13,16 @@ function fetchComments(){
 }
 
 function renderComments(comments_obj){
-    const commmentContainer = document.getElementsByClassName('.comments')
+    const comments = document.getElementsByClassName('.comments')
+    comments_obj.forEach(comment_obj => {
+        let content = document.createElement('li')
+        content.id = comment_obj.id
+        content.innerText = comment_obj.content
+
     
+        comments.append(content)
+        return content
+
+    });
+
 }
