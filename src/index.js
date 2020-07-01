@@ -10,11 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const downVote = document.createElement("button")
     likesBar.append(downVote)
     downVote.innerText = "🤢"
-   
 
-    
-
-    
     // need an event listener for clicks
         // that click event target will be the heart
         // that click event will make a patch request to increase the inner text of the likes span + 1
