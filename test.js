@@ -13,9 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderImage(imgObj) {
     // shows image onto browser 
 
-        const image = document.getElementsByClassName('image')
+        const imageContainer = document.getElementsByClassName('image-container')
+        const image = 
+        image.innerHTML =   `
 
+                                ${imageObject.id}
+                                ${imageObject.title}
+                                ${imageObject.likes}
+                                ${imageObject.image}
         
+                            `
 
     }
 
