@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', () =>{
     })
 
     const renderImage = image => {
-        console.log(image);
-        
         let title = document.querySelector('.title')
         title.innerText = image.title
 
@@ -19,28 +17,53 @@ document.addEventListener('DOMContentLoaded', () =>{
         likes.innerText = `${image.likes} likes` 
 
         let comment = document.querySelector('.comments')
-        console.log(comment);
-        
         comment.innerHTML = addComment(image.comments)
     }
 
+    const addComment = comments => {
+          return comments.map(c => {
+            return `<li>${c.content}</li>`
+          }).join("")
+    }
 
 
-    // document.addEventListener('click', e => {
-    //     const addLikes = parseInt(e.target.previousElementSibling.innerText) + 1
-    //     fetch('http://localhost:3000/images/1',{
-    //         method: 'PATCH',
-    //         headers: {
-    //             'Content-Type' : 'application/json',
-    //             'Accept': 'application/json'
-    //         },
-    //         body: JSON.stringify({"likes": addLikes})
-    //     })
-    //     .then(res => res.json())
-    //     .then(likeObj => {
-    //         e.target.previousElementSibling.innerText = `${addLikes} likes`;
-    //     })
-    // })
+    document.addEventListener('click', e => {
+        const addLikes = parseInt(e.target.previousElementSibling.innerText) + 1
+        console.log(e.target.previousElementSibling);
+        
+        fetch('http://localhost:3000/images/1',{
+            method: 'PATCH',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({"likes": addLikes})
+        })
+        .then(res => res.json())
+        .then(likeObj => {
+            e.target.previousElementSibling.innerText = `${addLikes} likes`;
+        })
+    })
+
+    document.addEventListener('submit', e =>{
+        console.log(e.target);
+        
+        // fetch('http://localhost:3000/comments',{
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         'imageId': image.id,
+        //         'content': content
+        //     })
+        //     .then(res => res.json())
+        //     .then(console.log
+        //     )
+        // })
+        
+    })
     
 
 })
@@ -62,10 +85,3 @@ document.addEventListener('DOMContentLoaded', () =>{
     //     });
     // })
 
-    // const renderComment =  c => {
-    //     let comment = document.querySelector('.comments')
-        // comment.innerHTML = addComment(image.comments)
-
-    //     console.log(comment);
-
-    // }
