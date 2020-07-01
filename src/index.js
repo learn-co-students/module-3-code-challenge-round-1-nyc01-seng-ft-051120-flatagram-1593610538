@@ -2,21 +2,22 @@
 document.addEventListener("DOMContentLoaded", function(e){
 
 
-    // function renderComment(comment){
-    //     const commentsUl = document.querySelector('ul')
-    //     const commentLi = document.createElement('li')
-    //     commentLi.innerHTML = 
-    //         `<p>${comment.content}</p>
-    //         <button value=""`
-    //     commentsUl.append(commentLi)
-    // }
-
     function renderComment(comment){
         const commentsUl = document.querySelector('ul')
         const commentLi = document.createElement('li')
-        commentLi.innerText = `${comment.content}`
+        commentLi.id = comment.id
+        commentLi.innerHTML = 
+            `<p>${comment.content}</p>
+            <button class="delete-comment">❌</button>`
         commentsUl.append(commentLi)
     }
+
+    // function renderComment(comment){
+    //     const commentsUl = document.querySelector('ul')
+    //     const commentLi = document.createElement('li')
+    //     commentLi.innerText = `${comment.content}`
+    //     commentsUl.append(commentLi)
+    // }
 
     function renderComments(comments){
         comments.forEach(comment => renderComment(comment))
@@ -50,6 +51,14 @@ document.addEventListener("DOMContentLoaded", function(e){
     fetchImageDetails("http://localhost:3000/images/1")
 
 
+    function deleteComment(url){
+        fetch(url, 
+            {method: 'DELETE'})
+        .then(resp => resp.json())
+        .then(console.log)
+        .catch (error => console.log(error))
+    }
+
 
 
     function updateLikesWithPatch(url, num){
@@ -76,10 +85,17 @@ document.addEventListener("DOMContentLoaded", function(e){
             const newNum = currentNum +1
 
             likesText.innerText = `${newNum} likes`
-
             updateLikesWithPatch("http://localhost:3000/images/1", newNum)
+
+        } else if (e.target.className === 'delete-comment'){
+
+            const specificCommentLi = e.target.parentNode
+            specificCommentLi.remove()
+            const commentId = specificCommentLi.id
+            deleteComment(`http://localhost:3000/comments/${commentId}`)
         }
     })
+
 
 
 
