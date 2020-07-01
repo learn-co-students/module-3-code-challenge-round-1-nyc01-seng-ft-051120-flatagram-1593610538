@@ -14,25 +14,26 @@ document.addEventListener('DOMContentLoaded', () =>{
         img.src = image.image
 
         let likes = document.querySelector('.likes')
-        likes.innerText = `${image.likes} likes`
-
-        // comment.innerHTML = addComment(image.comments)
-        
+        likes.innerText = `${image.likes} likes` 
     }
+    // const likeBtn = document.querySelector('.like-button')
 
-    fetch('http://localhost:3000/comments')
-    .then(response => response.json())
-    .then(Comments => {
-        comments.forEach(c => {
-            renderComment(c)
-        });
+    document.addEventListener('click', e => {
+        const addLikes = parseInt(e.target.previousElementSibling.innerText) + 1
+        fetch('http://localhost:3000/images/1',{
+            method: 'PATCH',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({"likes": addLikes})
+        })
+        .then(res => res.json())
+        .then(likeObj => {
+            e.target.previousElementSibling.innerText = `${addLikes} likes`;
+        })
     })
-
-    const renderComment =  c => {
-        let comment = document.querySelector('.comments')
-        console.log(comment);
-
-    }
+    
 
 })
 
@@ -44,3 +45,19 @@ document.addEventListener('DOMContentLoaded', () =>{
 1. fetch the image
 2. add title ,likes & comments on DOM
  */
+
+    // fetch('http://localhost:3000/comments')
+    // .then(response => response.json())
+    // .then(Comments => {
+    //     comments.forEach(c => {
+    //         renderComment(c)
+    //     });
+    // })
+
+    // const renderComment =  c => {
+    //     let comment = document.querySelector('.comments')
+        // comment.innerHTML = addComment(image.comments)
+
+    //     console.log(comment);
+
+    // }
