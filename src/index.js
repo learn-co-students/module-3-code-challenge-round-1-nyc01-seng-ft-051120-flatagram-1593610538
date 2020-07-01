@@ -5,20 +5,38 @@ document.addEventListener('DOMContentLoaded', function(e){
     document.addEventListener('click', function(e){
         if (e.target.matches('.like-button')){
             imgId = e.target.dataset.id
-            imgLikes = parseInt(e.target.parentNode.querySelector('.likes').textContent.slice(0,1))
+            imgLikes = parseInt(e.target.parentNode.querySelector('.likes').textContent.slice(0,2))
             newLikes = imgLikes + 1
+            console.log(newLikes)
             e.target.parentNode.querySelector('.likes').textContent = `${newLikes} likes`
-            fetch('http://localhost:3000/images/1', {
-                method: 'PATCH',
-                headers: {
-                    'content-type': 'application/json',
-                    'accepts': 'application/json'
-                },
-                body: JSON.stringify({
-                    'likes': newLikes
-                })
-            })
+            // fetch('http://localhost:3000/images/1', {
+            //     method: 'PATCH',
+            //     headers: {
+            //         'content-type': 'application/json',
+            //         'accepts': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         'likes': newLikes
+            //     })
+            // })
         }
+        else if (e.target.matches('.down-button')){
+            imgId = e.target.dataset.id
+            imgLikes = parseInt(e.target.parentNode.parentNode.querySelector('.likes').textContent.slice(0,1))
+            newLikes = imgLikes - 1
+            e.target.parentNode.parentNode.querySelector('.likes').textContent = `${newLikes} likes`
+            // fetch('http://localhost:3000/images/1', {
+            //     method: 'PATCH',
+            //     headers: {
+            //         'content-type': 'application/json',
+            //         'accepts': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         'likes': newLikes
+            //     })
+            // })
+        }
+        
     })
 
 })
@@ -44,7 +62,11 @@ function renderImage(image){
     imgCardLikeBtn = imgCard.querySelector('.like-button')
     imgCardLikeBtn.dataset.id = image.id
 
-    
+    imgCardDownBtn = document.createElement('button')
+    imgCardDownBtn.className = 'down-button'
+    imgCardDownBtn.textContent = "X"
+
+    imgCardLikeBtn.append(imgCardDownBtn)
 
     imgCardComm = imgCard.querySelector('.comments')
     imgCardComm.textContent = ''
