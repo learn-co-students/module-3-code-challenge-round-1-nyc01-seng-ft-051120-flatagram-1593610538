@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Woofing those bugs away",
-      "likes": 9,
+      "likes": 11,
       "image": "./assets/coder-dog.png"
     }
   ],
@@ -20,18 +20,33 @@
     },
     {
       "imageId": 1,
-      "content": "Maybe a treat or two",
-      "id": 6
-    },
-    {
-      "imageId": 1,
-      "content": "He deserves a boop",
-      "id": 7
-    },
-    {
-      "imageId": 1,
       "content": "Woof",
       "id": 8
+    },
+    {
+      "imageId": 1,
+      "content": "Me and the doge didn't think we'd get this far",
+      "id": 9
+    },
+    {
+      "imageId": 1,
+      "content": "Look at us now",
+      "id": 10
+    },
+    {
+      "imageId": 1,
+      "content": "Who would've thought",
+      "id": 11
+    },
+    {
+      "imageId": 1,
+      "content": "Not me",
+      "id": 12
+    },
+    {
+      "imageId": 1,
+      "content": "^ read in the voice of Paul Rudd",
+      "id": 13
     }
   ]
 }
