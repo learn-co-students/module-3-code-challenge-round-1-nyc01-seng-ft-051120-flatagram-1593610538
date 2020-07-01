@@ -30,6 +30,7 @@ document.addEventListener("submit", e => {
     e.preventDefault()
     if (e.target.className === "comment-form") {
         addComment(e)
+        e.target.reset()
     }
 })
 
@@ -41,6 +42,21 @@ const addComment = (e) => {
     let commentLi = document.createElement("li")
     commentLi.innerText = `${newComment}`
     commentsUl.append(commentLi)
+    fetch(baseUrl+`/comments`, {
+        method: 'POST', 
+        headers: {"content-type":"application/json"},
+        body: JSON.stringify({
+            imageId: 1,
+            content: newComment
+        })
+    })
+    .then(r => r.json())
+    .then(comment => {
+        console.log(comment);
+        commentsUl.lastChild.innerText = `${comment.content}`
+    })
+
+
 }
 
 
@@ -66,11 +82,13 @@ const renderImages = (images) => {
         imageCard.children[1].src = `${images.image}`
         likeSpan.innerText = `${images.likes} likes`
         likeBtn.dataset.id = `${images.id}`
-        commentsUl.innerHTML = `
-        <li>${images.comments[0].content}</li>
-        <li>${images.comments[1].content}</li>
-        <li>${images.comments[2].content}</li>
-        `
+        commentsUl.innerHTML = ""
+        images.comments.forEach(comment => {
+        let commentLi = document.createElement("li")
+        commentLi.innerHTML = `${comment.content}`
+        commentsUl.append(commentLi)
+        })
+        
 }    
 
 const fetchImage = () => {
