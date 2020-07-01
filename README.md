@@ -1,18 +1,18 @@
-# Flatagram
+<!-- # Flatagram
 
 Today you'll be building an app for viewing, liking, and commenting on a single picture. You will be using a local API and building out the frontend for our app, Flatagram.
 
 ## Demo
 
-Use this gif as an example of how the app should work.
+Use this gif as an example of how the app should work. -->
 
 ![demo gif](assets/demo.gif)
 
-## Setup
+<!-- ## Setup
 
 - Fork and clone this repository
 - Run `json-server --watch db.json --routes routes.json` to get the backend started
-- Open the `index.html` file on your browser
+- Open the `index.html` file on your browser -->
 
 ## Endpoints
 
@@ -51,3 +51,5 @@ As a user, I can:
 ## Rubric
 
 You can find the rubric for this assessment [here](https://github.com/learn-co-curriculum/se-rubrics/blob/master/module-3.md).
+
+<!--  -->
