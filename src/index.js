@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getComments()
     // like()
 })
-
+const commentSection = document.querySelector('.comments')
 function getImage(){
     fetch('http://localhost:3000/images/1')
     .then(resp => resp.json())
@@ -14,14 +14,16 @@ function getImage(){
 function getComments(){
     fetch('http://localhost:3000/comments')
     .then(resp => resp.json())
-    .then(comments => {comments.forEach(comment => {
-        renderImage(comment)
-        console.log(comment)
-    });}
+    .then(comments =>
+    //      {comments.forEach(comment => {
+    //     renderComments(comment)
+
+    // });}
+    renderComments(comments)
     )
 }
 
-function renderImage(image, comment){
+function renderImage(image){
     const imageCard = document.querySelector('.image-card')
     imageCard.innerHTML = `
     <h2 class="title">${image.title}</h2>
@@ -33,11 +35,31 @@ function renderImage(image, comment){
     `
 }
 
-// function renderComments(comments){
-//     const commentSection = document.querySelector('.comments')
-//     console.log(commentSection)
+function renderComments(comments){
+    const imageCard = document.querySelector('.image-card')
+    // let commentsUl = document.querySelector('.comments')
+    // let commentLi = document.getElementsByTagName('li')
+    comments.forEach(comment => {
+        imageCard.innerHTML += `
+    <ul class="comments">
+          <li>${comment.content}</li>
+        </ul>`
+    });
 
-// }
+    //     imageCard.innerHTML =
+    //     `<form class="comment-form">
+    //       <input
+    //         class="comment-input"
+    //         type="text"
+    //         name="comment"
+    //         placeholder="Add a comment..."
+    //       />
+    //       <button class="comment-button" type="submit">Post</button>
+    //     </form>
+    // `
+
+
+}
 
 // function like(){
 //     const likeBtn = document.querySelector('.like-button')
