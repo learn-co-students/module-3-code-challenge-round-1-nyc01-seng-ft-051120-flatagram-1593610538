@@ -1,7 +1,19 @@
 // write your code here
+let commentForm = document.querySelector('form')
+let submitBtn = commentForm.querySelector('button')
+
 document.addEventListener('DOMContentLoaded', () => {
 fetchImage()
 likesListener()
+document.addEventListener('submit', (event) => {
+    event.preventDefault()
+    let commentLi = document.createElement('li')
+    commentLi.innerText = commentForm.querySelector('input').value
+    let commentsDiv = document.querySelector('ul')
+    commentsDiv.appendChild(commentLi)
+    commentForm.querySelector('input').value = ""
+
+})
 })
 
 
@@ -23,7 +35,7 @@ const renderImg = (imgObj) => {
     let likesSpot = imgDiv.querySelector('span.likes')
     titleSpot.innerText = imgObj.title 
     imgSpot.src = imgObj.image 
-    likesSpot = imgObj.likes 
+    likesSpot.innerText = `${imgObj.likes} likes`
     fetchComments()
 }
 
