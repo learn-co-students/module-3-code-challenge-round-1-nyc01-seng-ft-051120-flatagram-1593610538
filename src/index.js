@@ -7,34 +7,33 @@ document.addEventListener('DOMContentLoaded', function(e){
             imgId = e.target.dataset.id
             imgLikes = parseInt(e.target.parentNode.querySelector('.likes').textContent.slice(0,2))
             newLikes = imgLikes + 1
-            console.log(newLikes)
             e.target.parentNode.querySelector('.likes').textContent = `${newLikes} likes`
-            // fetch('http://localhost:3000/images/1', {
-            //     method: 'PATCH',
-            //     headers: {
-            //         'content-type': 'application/json',
-            //         'accepts': 'application/json'
-            //     },
-            //     body: JSON.stringify({
-            //         'likes': newLikes
-            //     })
-            // })
+            fetch('http://localhost:3000/images/1', {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json',
+                    'accepts': 'application/json'
+                },
+                body: JSON.stringify({
+                    'likes': newLikes
+                })
+            })
         }
         else if (e.target.matches('.down-button')){
             imgId = e.target.dataset.id
-            imgLikes = parseInt(e.target.parentNode.parentNode.querySelector('.likes').textContent.slice(0,1))
-            newLikes = imgLikes - 1
-            e.target.parentNode.parentNode.querySelector('.likes').textContent = `${newLikes} likes`
-            // fetch('http://localhost:3000/images/1', {
-            //     method: 'PATCH',
-            //     headers: {
-            //         'content-type': 'application/json',
-            //         'accepts': 'application/json'
-            //     },
-            //     body: JSON.stringify({
-            //         'likes': newLikes
-            //     })
-            // })
+            imgLikes = parseInt(e.target.parentNode.parentNode.querySelector('.likes').textContent.slice(0,2))
+            downLikes = imgLikes - 1
+            e.target.parentNode.parentNode.querySelector('.likes').textContent = `${downLikes} likes`
+            fetch('http://localhost:3000/images/1', {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json',
+                    'accepts': 'application/json'
+                },
+                body: JSON.stringify({
+                    'likes': downLikes
+                })
+            })
         }
         
     })
@@ -95,5 +94,17 @@ function addComm(){
         commUl.append(commLi)
 
         commForm.reset()
+
+        fetch(`http://localhost:3000/comments`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'accepts': 'application/json'
+            },
+            body: JSON.stringify({
+                'imageId': 1,
+                'content': comment
+            })
+        })
     })
 }
