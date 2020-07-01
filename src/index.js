@@ -6,12 +6,12 @@
 // POST /comments
 // DELETE /comments/:id
 
-// ++On page load render title, likes, comments
+// ++ On page load render title, likes, comments
 
-// ++click on heart increases likes
-// ++use fetch patch to persist the likes
+// ++ click on heart increases likes
+// ++ use fetch patch to persist the likes
 
-//add comments (dont need to do a POST)
+// ++ add comments (dont need to do a POST)
 
 document.addEventListener("DOMContentLoaded", function(e){
 
@@ -72,6 +72,20 @@ document.addEventListener("DOMContentLoaded", function(e){
         createNewComment.textContent = newComment
         commentsUl.append(createNewComment)
         e.target.reset()
+
+        fetch("http://localhost:3000/images/1/comments", {
+            method: "POST",
+            body: JSON.stringify({
+                "imageId": parseInt(1),
+                "content": newComment
+            }),
+            headers: {
+                "Content-type": "application/json",
+                "Accept": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
     })
     
 })
