@@ -33,7 +33,9 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     const addIdToCard = imgId => {
         const card = document.querySelector("div.image-card")
-        card.id = imgId        
+        card.id = imgId
+        const likeButton = document.querySelector(".like-button")
+        likeButton.id = imgId       
     }
 
     const renderImg = image => {
@@ -68,10 +70,60 @@ document.addEventListener("DOMContentLoaded", function(e){
     const renderCommentLi = li => {
         commentUl = document.querySelector("ul.comments")
         commentUl.append(li)
+    }
+
+    const clickHandler = () => {
+        document.addEventListener("click", function(e){
+            if (e.target.className === "like-button") {
+                const button = e.target
+                const likeSpan = document.querySelector("span.likes")
+                const likeSpanContent = likeSpan.textContent
+                const currentLikes = likeSpanContent.split(' ')[0]
+                const imgId = button.id
+                const newLikes = updateLikes(currentLikes, imgId)                
+            }
+        })
+    }
+
+    const submitHandler = () => {
+        const form = document.querySelector(".comment-form")
+        form.addEventListener("submit", function(e){
+            e.preventDefault()
+            const input = form.querySelector('input').value
+            li = createCommentLi(input)
+            console.log(li);
+            
+            renderCommentLi(li)
+            form.reset()
+                    
+        
+        })
+    }
+
+    const updateLikes = (currentLikes, imgId) => {
+        const newLikes = parseInt(currentLikes) + 1
+        const url = `http://localhost:3000/images/${imgId}`
+        return fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                likes: `${newLikes}`
+            })
+        })
+        .then(resp => resp.json())
+        .then(obj => {
+                renderLikes(obj.likes)
+        })
         
     }
 
 
 
+
     getImageData("http://localhost:3000/images/1")
+    clickHandler()
+    submitHandler()
 })
