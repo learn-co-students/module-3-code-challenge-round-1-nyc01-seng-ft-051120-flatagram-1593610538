@@ -48,7 +48,7 @@ const fetchComments = () => {
         comments.forEach(comment => {
             let li = document.createElement('li')
             li.dataset.id = comment.id 
-            li.dataset.image_id = comment.image_id
+            li.dataset.image_id = comment.imageId
             li.innerText = comment.content 
             commentSpot.appendChild(li)
         })
