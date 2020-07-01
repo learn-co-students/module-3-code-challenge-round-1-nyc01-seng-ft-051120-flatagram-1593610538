@@ -75,8 +75,16 @@ function addSubmitEvent(){
     e.preventDefault()
     const content = e.target.comment.value
     const imageId = parseInt(e.target.parentNode.dataset.id)
-    fetcher(COMMENTS_URL,console.log,console.log,{imageId,content},"POST")     
+    fetcher(COMMENTS_URL,addNewComment,console.log,{imageId,content},"POST")     
   })
 }
 
-functi
+function addNewComment(comment){
+ const commentsUl = document.querySelector(`div[data-id="${comment.imageId}"] ul.comments`)
+ commentsUl.insertAdjacentHTML("beforeend",`<li data-comment-id="${comment.id}">${comment.content}</li>`)
+ clearForm()
+}
+
+function clearForm(){
+  document.querySelector(".comment-form").reset()
+}
