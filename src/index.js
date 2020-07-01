@@ -13,10 +13,30 @@ const showPic = (pic) =>{
   let like = getPictureCard.querySelector('.likes')
   title.textContent = pic.title
   image.src= pic.image
-  like.textContent = `${pic.likes} likes`
+  like.dataset.id = pic.id
+  like.innerHTML = `<span>${pic.likes}</span> likes`
   let li = document.createElement('li')
 pic.comments.forEach(e =>e.content)
 }
+
+document.addEventListener('click',function(e){
+if(e.target.textContent == '♥'){
+  let likeCount = e.target.parentNode.children[0].querySelector('span')
+let likies = likeCount.textContent = parseInt(likeCount.textContent)+1
+  fetch(`http://localhost:3000/images/${e.target.parentNode.children[0].dataset.id}`,{
+method : 'PATCH',
+body: JSON.stringify({
+  likes : likies
+}),
+ headers: {
+   'content-type': 'application/json'
+ }
+
+})}})
+
+document.addEventListener('submit',function(e) {
+  console.log(e)
+})
 
 picApi()
 })
