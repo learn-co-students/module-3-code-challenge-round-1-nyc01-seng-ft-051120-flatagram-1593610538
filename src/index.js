@@ -13,12 +13,10 @@ const fetchImage = () => {
 const render = (image) => {
   const photo = document.querySelector('.image')
   const title = document.querySelector('.title')
-  const likes = document.querySelector('.likes')
   const comments = document.querySelector('.comments')
   comments.innerHTML = ''
   photo.src = image.image
   title.textContent = image.title
-  likes.textContent = `${image.likes} likes`
 
   const renderComment = (comment) => {
       const li = document.createElement('li')
@@ -33,16 +31,19 @@ const increaseLikes = () => {
   const likesSection = document.querySelector('.likes-section')
   likesSection.addEventListener ('click', e => {
     if (e.target.className === 'like-button') {
-      const likes = document.querySelector('.likes')
+      fetch('http://localhost:3000/images/1')
+      .then(r => r.json())
+      .then(data => {
+        let likes = data.likes
+        return likes
+      })
       console.log(likes)
-
-      // fetch('http://localhost:3000/images/1', {
-      //   method: 'PATCH',
-
-      // })
-    }
-  })
+  }
+})
 }
+
+
+
 
 fetchImage()
 increaseLikes()
