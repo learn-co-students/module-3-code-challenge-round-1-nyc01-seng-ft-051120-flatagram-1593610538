@@ -6,16 +6,12 @@ const COMMENTS_URL = `${BASE_URL}/comments`
 const imageElement = document.querySelector(".image");
 const commentsList = document.querySelector(".comments");
 const likesSection = document.querySelector(".likes-section");
-console.log(likesSection);
-
 
 function getImage() {
   fetch(`${IMAGES_URL}/1`)
     .then(res => res.json())
     .then(json => {
       renderPost(json)
-      console.log(json);
-      
     })
 }
 
@@ -34,30 +30,33 @@ function renderComments(post) {
 
 likesSection.addEventListener('click', e => {
   if (e.target.className.includes("like-button")) {
-
+    
   }
 })
 
 
-patchPost(post) {
-  // fetch(
-  //   `${IMAGES_URL}/${post.id}`,
-  //   {
-  //     method: "POST",
-  //     headers: {
-  //       "Accept": "json/application",
-  //       "Data-Type": "json/application"
-  //     },
-  //     body: JSON.stringify({
-  //       comments: post.comments,
-  //       id: post.id,
-  //       image: post.image,
-  //       likes: post.likes,
-  //       title: post.title,
-  //     })
-  //   }
-  // )
+function patchPost() {
+  fetch(
+    `${IMAGES_URL}/1`,
+    {
+      method: "PATCH",
+      headers: {
+        "Accept": "json/application",
+        "Data-Type": "json/application",
+        "Accept-Patch": "application/json"
+      },
+      body: JSON.stringify({
+        image: "hello",
+        likes: "4",
+        title: "hello",
+      })
+    }
+  )
+
 }
 
 
+
 getImage()
+
+patchPost()
