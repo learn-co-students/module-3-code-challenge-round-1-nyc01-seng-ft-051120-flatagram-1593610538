@@ -4,13 +4,23 @@
 // √Add a comment (no persistance needed)
 
 
+// I would've liked to refactor this so that increasing/decreasing likes was just one function, but wasn't too sure how 
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const baseUrl = 'http://localhost:3000'
     const imageCard = document.querySelector(".image-card")
     const likeSpan = document.querySelector(".likes")
     const likeBtn = document.querySelector(".like-button")
     const commentsUl = document.querySelector(".comments")
-    console.log(commentsUl);
+    
+    // creating downvote button
+    const likesBar = document.querySelector(".likes-section")
+    const downVote = document.createElement("button")
+    likesBar.append(downVote)
+    downVote.innerText = "🤢"
+   
+
     
 
     
@@ -19,7 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // that click event will make a patch request to increase the inner text of the likes span + 1
 document.addEventListener("click", e => {
     if (e.target.innerText === "♥"){
-        patchLikes(e)
+        increaseLikes(e)
+    } else if (e.target.innerText === "🤢"){
+        decreaseLikes(e)
+    } else if (e.target.parentNode.className === "comments") {
+        // console.log(e.target);
+        deleteComment(e)   
     }
 })
 
@@ -34,11 +49,21 @@ document.addEventListener("submit", e => {
     }
 })
 
+const deleteComment = (e) => {
+    let commentToRemove = e.target
+    let commentId = commentToRemove.dataset.id
+    fetch(baseUrl+`/comments/${commentId}`, {
+        method: 'DELETE'
+    })
+    commentToRemove.remove()
+}
+
+// function to add comments w/ post request
 const addComment = (e) => {
     let form = e.target
-    console.log(form);
+    // console.log(form);
     let newComment = form.comment.value
-    console.log(newComment);
+    // console.log(newComment);
     let commentLi = document.createElement("li")
     commentLi.innerText = `${newComment}`
     commentsUl.append(commentLi)
@@ -55,15 +80,12 @@ const addComment = (e) => {
         console.log(comment);
         commentsUl.lastChild.innerText = `${comment.content}`
     })
-
-
 }
 
-
- const patchLikes = (e) => {
+// function to increase likes
+ const increaseLikes = (e) => {
      let likeId = e.target.dataset.id
      let newLikes = parseInt(likeSpan.innerText) + 1
-     console.log(likeId)
      fetch(baseUrl+`/images/${likeId}`, {
          method: 'PATCH',
          headers: {"content-type":"application/json"},
@@ -77,15 +99,34 @@ const addComment = (e) => {
      })
  }
 
+const decreaseLikes = (e) => {
+    let likeId = e.target.dataset.id
+     let newLikes = parseInt(likeSpan.innerText) - 1
+    //  console.log(likeId)
+     fetch(baseUrl+`/images/${likeId}`, {
+         method: 'PATCH',
+         headers: {"content-type":"application/json"},
+         body: JSON.stringify({
+             likes: newLikes
+         })
+     })
+     .then(r => r.json())
+     .then(likes => {
+        likeSpan.innerText = `${likes.likes} likes`     
+     })
+}
+
 const renderImages = (images) => {
         imageCard.children[0].innerText = `${images.title}` 
         imageCard.children[1].src = `${images.image}`
         likeSpan.innerText = `${images.likes} likes`
         likeBtn.dataset.id = `${images.id}`
+        downVote.dataset.id = `${images.id}`
         commentsUl.innerHTML = ""
         images.comments.forEach(comment => {
         let commentLi = document.createElement("li")
         commentLi.innerHTML = `${comment.content}`
+        commentLi.dataset.id = `${comment.id}`
         commentsUl.append(commentLi)
         })
         
@@ -96,6 +137,5 @@ const fetchImage = () => {
     .then(r => r.json())
     .then(images => renderImages(images))
 }
-  
 fetchImage()
 })

@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Woofing those bugs away",
-      "likes": 5,
+      "likes": 9,
       "image": "./assets/coder-dog.png"
     }
   ],
@@ -19,24 +19,19 @@
       "content": "He's got a nose for bugs!"
     },
     {
-      "id": 3,
       "imageId": 1,
-      "content": "Woof!"
-    },
-    {
-      "imageId": 1,
-      "content": "What a cute pupper",
-      "id": 4
+      "content": "Maybe a treat or two",
+      "id": 6
     },
     {
       "imageId": 1,
       "content": "He deserves a boop",
-      "id": 5
+      "id": 7
     },
     {
       "imageId": 1,
-      "content": "Maybe a treat or two",
-      "id": 6
+      "content": "Woof",
+      "id": 8
     }
   ]
 }
