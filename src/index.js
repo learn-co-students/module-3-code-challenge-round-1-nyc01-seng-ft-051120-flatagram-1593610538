@@ -43,11 +43,11 @@ function makeComments(dog){
 
 document.addEventListener('click', function(e){
     if (e.target.className === "like-button"){
-        likes = document.querySelector('span')
-        likes.innerText =`${parseInt(likes.innerText) + 1} likes`
+        let likes = document.querySelector('span')
+        // likes.innerText =`${parseInt(likes.innerText) + 1} likes`
 
-        formObj = {
-            "likes": likes.innerText
+        let formObj = {
+            "likes": `${parseInt(likes.innerText) + 1} likes`
         }
      fetch(fetchURL, {
          method: "PATCH",
@@ -57,9 +57,23 @@ document.addEventListener('click', function(e){
          },
          body: JSON.stringify (formObj)
      })
-    //  .then(response => response.json())
-    //  .then(console.log)
-    likes = document.querySelector('span')
-    likes.innerText =`${parseInt(likes.innerText) + 1} likes`
+     .then(response => response.json())
+     .then(data => {
+        let fetchLike = document.querySelector('span')
+        fetchLike.innerText = data.likes
+     })
+    }
+})
+
+
+document.addEventListener('submit', function(e){
+    e.preventDefault()
+    if (e.target.className ===  "comment-form"){
+   let input = document.querySelector('.comment-input')
+   let newComment = input.value
+   let li =document.createElement('li')
+   li.innerHTML = newComment
+   let ulContainer = document.querySelector('.comments')
+   ulContainer.append(newComment)
     }
 })
