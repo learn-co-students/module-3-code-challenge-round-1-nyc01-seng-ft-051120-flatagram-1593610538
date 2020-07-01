@@ -15,6 +15,8 @@
 
 document.addEventListener("DOMContentLoaded", function(e){
 
+    const commentsUl = document.querySelector(".comments")
+
     fetch("http://localhost:3000/images/1")
     .then(response => response.json())
     .then(data =>{
@@ -22,21 +24,28 @@ document.addEventListener("DOMContentLoaded", function(e){
     })
 
     function renderPost(data){
-        console.log(data.comments)
+        // console.log(data.comments)
+        const pictComments = data.comments
         const imageCard = document.querySelector(".image-card")
         const likesSection = document.querySelector(".likes-section")
-        const comments = document.querySelector(".comments")
-        const createdComments = document.createElement("li")
         imageCard.querySelector(".title").textContent = data.title
         imageCard.querySelector("img").src = data.image
         // likesSection.querySelector(".likes") = `${data.likes} likes`
+        pictComments.forEach(comment =>{
+            renderComments(comment)
+        })
+      
         
         // renderComments(data)
     }
 
-    // function renderComments(data){
-    //     console.log(data)
-    // }
+    function renderComments(data){
+        // console.log(data)
+        const createdComments = document.createElement("li")
+        createdComments.textContent = data.content
+        commentsUl.append(createdComments)
+    }
 
+    document.add
     
 })
