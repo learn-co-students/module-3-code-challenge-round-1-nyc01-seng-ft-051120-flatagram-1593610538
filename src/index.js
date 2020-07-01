@@ -19,7 +19,6 @@ const renderImg = (imgObj) => {
     let titleSpot = imgDiv.querySelector('h2.title')
     let imgSpot = imgDiv.querySelector('img.image')
     let likesSpot = imgDiv.querySelector('span.likes')
-    let commentSpot = imgDiv.querySelector('ul.comments')
     titleSpot.innerText = imgObj.title 
     imgSpot.src = imgObj.image 
     likesSpot = imgObj.likes 
@@ -31,8 +30,14 @@ const fetchComments = () => {
     fetch("http://localhost:3000/comments")
     .then(response => response.json())
     .then(comments => {
+        let commentSpot = imgDiv.querySelector('ul.comments')
+        commentSpot.innerHTML = ""
         comments.forEach(comment => {
-            console.log(comment)
-        }
-    }))
+            let li = document.createElement('li')
+            li.dataset.id = comment.id 
+            li.dataset.image_id = comment.image_id
+            li.innerText = comment.content 
+            commentSpot.appendChild(li)
+        })
+    })
 }
