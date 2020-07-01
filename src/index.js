@@ -50,7 +50,7 @@ const likesListener = () => {
     likesBtn.addEventListener('click', (event) => {
         if (event.target === likesBtn){
             let targetDiv = document.querySelector('.likes-section')
-            let currentLikes = parseInt(targetDiv.querySelector('span').innerText[0])
+            let currentLikes = parseInt(targetDiv.querySelector('span').innerText)
             currentLikes = currentLikes + 1
             console.log(currentLikes)
 
