@@ -8,6 +8,7 @@ const titleH1 = document.querySelector(`.title`)
 const likeButton = document.querySelector(`.like-button`)
 const commentForm = document.querySelector(`.comment-form`)
 const commentButton = document.querySelector(`.comment-button`)
+const commentInput = document.querySelector(`.comment-input`)
 
 imageUrl = "http://localhost:3000/images/1"
 commentsUrl = "http://localhost:3000/comments"
@@ -42,13 +43,21 @@ const renderImage = (image) => {
         })
 }
 
-document.addEventListener('click', function (e) {
-if (e.target = likeButton)
-addLike()
-}
 
-const addLike = () => {
-currentLikes = likeSpan.dataset.likes
+
+
+
+document.addEventListener("click", function (e) {
+if (e.target = likeButton)
+addLike(e)
+
+else if (e.target = commentButton)
+submitListener(e)
+
+})
+
+const addLike = (e) => {
+currentLikes = likesSpan.dataset.likes
 totalLikes = parseInt(currentLikes) + 1
 
 const likesObj = {
@@ -61,13 +70,27 @@ const likesObj = {
     }
 
     fetch(imageUrl, likesObj)
-    // .then(resp => resp.json())
-    // .then(json => updateLikes(json))
-}
+    .then(resp => resp.json())
+    .then(image => renderImage(image))
+    }
 
 
+const submitListener = (e) => {
+    document.addEventListener("submit", (e) => {
+    e.preventDefault()
+    newComment = commentInput.comment.value
+    addComment(newComment)
+    })}
 
-}
+const addComment = (newComment) => {
+    commentLi = document.createElement(`li`)
+    commentLi.innerText = `${newComment}`
+    commentsUl.append(commentLi)
+    // commentForm.reset()
+    }
+
+
+ 
 
    
 
