@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     getImage()
     getComments()
-    // like()
+    like()
 })
 const commentSection = document.querySelector('.comments')
 function getImage(){
@@ -36,17 +36,17 @@ function renderImage(image){
 }
 
 function renderComments(comments){
-    const imageCard = document.querySelector('.image-card')
+    // const imageCard = document.querySelector('.image-card')
     // let commentsUl = document.querySelector('.comments')
+    // let commentForm = document.querySelector('.comment-form')
     // let commentLi = document.getElementsByTagName('li')
-    comments.forEach(comment => {
-        imageCard.innerHTML += `
-    <ul class="comments">
-          <li>${comment.content}</li>
-        </ul>`
-    });
 
-    //     imageCard.innerHTML =
+    // comments.forEach(comment => {
+    //     commentsUl.innerHTML += `
+    //       <li>${comment.content}</li>`
+    // });
+
+    //     commentForm.innerHTML =
     //     `<form class="comment-form">
     //       <input
     //         class="comment-input"
@@ -57,38 +57,31 @@ function renderComments(comments){
     //       <button class="comment-button" type="submit">Post</button>
     //     </form>
     // `
-
-
+    // imageCard.append(commentUl)
+    // imageCard.append(commentForm)
 }
 
-// function like(){
-//     const likeBtn = document.querySelector('.like-button')
-//     let likes = parseInt(document.querySelector('.likes').innerText)
-//     let likeNum = document.querySelector('.likes').innerText
-
-//     likeBtn.addEventListener('click', function(e){
-//         // if(e.target === likeBtn){
-//             // e.preventDefault()
-//         // likes + 1
-//         // likeNum = `${likes} likes`
-//         console.log*likes
-//         // }
+function like(){
+    const likeBtn = document.querySelector('.like-button')
+    let likes = parseInt(likeBtn.previousElementSibling.innerText)+1
+    let likeNum = document.querySelector('.likes')
+    // document.addEventListener('click', function(e){
+    //     // if(e.target === likeBtn){
+    //     //     // e.preventDefault()
+    //     // // likes + 1
+    //     // // likeNum = `${likes} likes`
+    //     // console.log(e.target)
+    //     // }
         
         
         
-//     })
-// }
+    // })
 
-
-{/* <ul class="comments">
-          <li>${comment.comment}</li>
-        </ul>
-        <form class="comment-form">
-          <input
-            class="comment-input"
-            type="text"
-            name="comment"
-            placeholder="Add a comment..."
-          />
-          <button class="comment-button" type="submit">Post</button>
-        </form> */}
+    document.addEventListener('click', (e)=>{
+        if(e.target.className === 'like-button'){
+            e.preventDefault()
+            console.log(likes)
+        likeNum = `${likes} likes`
+            
+    }})
+}
