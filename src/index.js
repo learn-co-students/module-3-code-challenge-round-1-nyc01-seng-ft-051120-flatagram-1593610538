@@ -66,12 +66,12 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     document.addEventListener("submit", function(e){
         e.preventDefault()
-        console.log(e.target.comment.value)
+        console.log(e.target)
         const newComment = e.target.comment.value
         const createNewComment = document.createElement("li")
         createNewComment.textContent = newComment
         commentsUl.append(createNewComment)
-        form.reset()
+        e.target.reset()
     })
     
 })
