@@ -5,6 +5,7 @@ const COMMENTS_URL = `${BASE_URL}/comments`
 
 document.addEventListener("DOMContentLoaded",()=>{
   fetcher(IMGES_URL,displayDog,console.log)
+  addClickEvents()
 })
 
 function fetcher (url,successCallback,errorCallback,data = {},method="GET"){
@@ -35,6 +36,24 @@ function isEmptyObject(data){
 
 function displayDog(dog){
   const imageCard =  document.querySelector(".image-card")
-  console.log(imageCard);
-  
+  imageCard.querySelector(".title").textContent = dog.title
+  imageCard.querySelector(".image").src = dog.image
+  imageCard.querySelector(".likes").textContent = `${dog.likes} likes`
+  imageCard.querySelector(".like-button").dataset.id = dog.id
+  imageCard.querySelector(".comments").innerHTML = createDogComments(dog.comments)
+}
+
+function createDogComments(comments){
+  let commentsHTMLString = ""
+  comments.forEach(comment => {
+    commentsHTMLString += `<li data-comment-id="${comment.id}">${comment.content}</li>`
+  });  
+  return commentsHTMLString
+}
+
+function addClickEvents(){
+  document.querySelector("button.like-button").addEventListener("click", e =>{
+    id = e.target.dataset.id
+    
+  })
 }
