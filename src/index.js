@@ -16,6 +16,7 @@ let images = []
 const imageCard = document.querySelector('#image-card')
 const likesSection = document.querySelector('#likes-section')
 const commentsUL = document.querySelector('#comments')
+const likeButton = document.querySelector('#like-button')
 
 
 document.addEventListener("DOMContentLoaded",(event)=>{
@@ -38,8 +39,8 @@ function getImages(){
         
 //     images.forEach(image =>{
 //         imageCard.innerHTML  = `
-//         <h2>${images.title}</h2>
-//         <img src=${images.image}>
+//         <h2>${image.title}</h2>
+//         <img src=${image.image}>
 //         `
 //     })
 // }
