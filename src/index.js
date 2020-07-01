@@ -29,21 +29,25 @@ const render = (image) => {
 
 const increaseLikes = () => {
   const likesSection = document.querySelector('.likes-section')
-  likesSection.addEventListener ('click', e => {
-    if (e.target.className === 'like-button') {
-      fetch('http://localhost:3000/images/1')
-      .then(r => r.json())
-      .then(data => {
-        let likes = data.likes
-        return likes
-      })
-      console.log(likes)
-  }
-})
+  likesSection.addEventListener('click', e => {
+    if (e.target.classname = 'like-button') {
+      const likeCounter = document.querySelector()
+    }
+  })
 }
 
 
-
+const postComment = () => {
+  const comment = document.querySelector('.comment-form')
+  comment.addEventListener('submit', e => {
+    e.preventDefault()
+    const commList = document.querySelector('.comments')
+    const newComm = document.createElement('li')
+    newComm.textContent = comment.firstChild.value
+    console.log(newComm.textContent)
+  })
+}
 
 fetchImage()
+postComment()
 increaseLikes()
